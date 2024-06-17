@@ -8,6 +8,7 @@ exports.remove = exports.query = exports.each = exports.all = exports.add = void
 var _mysql = _interopRequireDefault(require("mysql"));
 var _index = _interopRequireDefault(require("../config/index.js"));
 var dbconfig = {
+  port: _index["default"].mysql.port,
   host: _index["default"].mysql.host,
   user: _index["default"].mysql.user,
   password: _index["default"].mysql.password,
@@ -48,9 +49,9 @@ var each = exports.each = function each(table, id) {
     });
   });
 };
-var add = exports.add = function add(table, data) {
+var add = exports.add = function add(data) {
   return new Promise(function (resolve, reject) {
-    connection.query("insert into ".concat(table, " set ? on duplicate key update ?"), [data, data], function (error, result) {
+    connection.query("call sp_create_user(?)", [data, data], function (error, result) {
       return error ? reject(error) : resolve(result);
     });
   });
@@ -64,7 +65,7 @@ var remove = exports.remove = function remove(table, data) {
 };
 var query = exports.query = function query(table, _query) {
   return new Promise(function (resolve, reject) {
-    connection.query("select * from ".concat(table, " where ?"), _query, function (error, result) {
+    connection.query("call sp_read_logueo(?)", _query, function (error, result) {
       return error ? reject(error) : resolve(result[0]);
     });
   });
