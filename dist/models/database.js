@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.remove = exports.query = exports.each = exports.all = exports.add = void 0;
-var _mysql = _interopRequireDefault(require("mysql"));
+var _mysql = _interopRequireDefault(require("mysql2"));
 var _index = _interopRequireDefault(require("../config/index.js"));
 var dbconfig = {
   port: _index["default"].mysql.port,
@@ -51,7 +51,7 @@ var each = exports.each = function each(table, id) {
 };
 var add = exports.add = function add(data) {
   return new Promise(function (resolve, reject) {
-    connection.query("call sp_create_user(?)", [data, data], function (error, result) {
+    connection.query("call sp_create_user(?,?,?,?)", [data.email, data.password, data.nombre, data.apellido], function (error, result) {
       return error ? reject(error) : resolve(result);
     });
   });
