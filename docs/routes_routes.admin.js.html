@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: models/database.js</title>
+    <title>JSDoc: Source: routes/routes.admin.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: models/database.js</h1>
+    <h1 class="page-title">Source: routes/routes.admin.js</h1>
 
     
 
@@ -26,23 +26,33 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { createPool } from "mysql2/promise";
-import config from "../config/index.js";
+            <pre class="prettyprint source linenums"><code>import admin from "../controllers/controller.admin.js";
+import express from "express";
+import { checkAuth } from "../services/security.js";
 
 /**
- * Sirve para conectarme a mi base de datos
+ * Esta es la ruta del administrador
  * @type {object}
  */
-const dbconfig = {
-  port: config.mysql.port,
-  host: config.mysql.host,
-  user: config.mysql.user,
-  password: config.mysql.password,
-  database: config.mysql.database,
-};
+const routerAdmin = express.Router();
 
-export const pool = createPool(dbconfig);
-</code></pre>
+// RUTAS
+routerAdmin.post("/admin", admin.createSubAdmin);
+routerAdmin.put("/admin", admin.updateStateReport);// PROBARLO
+
+routerAdmin.get("/formNew", admin.showFormNew);
+routerAdmin.get("/formDemage", admin.showFormDemage);
+
+routerAdmin.get("/accounts", admin.showAccounts);
+routerAdmin.put("/accounts", admin.updateResponsible);// PROBARLO
+routerAdmin.post("/accounts", admin.delteAccounts);
+
+routerAdmin.post("/ficha", admin.createficha);
+routerAdmin.get("/ficha",checkAuth, admin.showFichas);
+routerAdmin.delete("/ficha", admin.deleteFicha);
+routerAdmin.put("/ficha", admin.updateFicha);
+
+export default routerAdmin;</code></pre>
         </article>
     </section>
 

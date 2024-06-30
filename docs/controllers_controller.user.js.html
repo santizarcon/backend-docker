@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: controllers/controller.user.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: controllers/controller.user.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Este es el controlador para el usuario
+ * @module ctl-user
+ */
+import bcrypt from "bcrypt";
+import { assignToken } from "../middleware/auth.js";
+import response from "../messages/responses.js";
+import { pool } from "../models/database.js";
+
+
+// BOTH
+
+/**
+ * Esta funcion sirve para loguearse el administrador y usuario
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const login = async (req, res, next) => {
+  try {
+    const data = await pool.query(`CALL sp_read_logueo(?);`, [req.body.email]);
+    if (data[0][0] === 0) {
+      let message = "User doesn't exist";
+
+      response.error(req, res, message, 404);
+      return;
+    }
+
+    const match = await bcrypt.compare(
+      req.body.password,
+      data[0][0][0].password
+    );
+
+    if (!match) {
+      let message = "Wrong password";
+      response.error(req, res, message, 404);
+      return;
+    }
+
+    const token = assignToken(data[0][0][0]);
+    response.success(req, res, token, 200);
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
+ * Esta funcion sirve para actualizar todas las cuentas
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const updateAccounts = async (req, res, next) => {
+  req.body.password = await bcrypt.hash(req.body.password.toString(), 10);
+
+  try {
+    const data = await pool.query(`CALL sp_update_cuentas(?, ?, ?, ?, ?);`, [
+      req.body.email,
+      req.body.password,
+      req.body.nombre,
+      req.body.apellido,
+      req.body.estado,
+    ]);
+
+    if (data[0].affectedRows >= 1) {
+      let message = "Item updated successful (Account)";
+    response.success(req, res, message, 201);
+    } else {
+      let message = "Could't updated Account";
+      response.error(req, res, message, 400)
+    }
+
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
+ * Esta funcion sirve para crear el codigo OTP, para recuperar la contraseña
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const createCodeOTP = async (req, res, next) => {
+
+  try {
+    const data = await pool.query(`CALL sp_create_codigo_otp(?, ?);`, [
+      req.body.codigo,
+      req.body.email,
+    ]);
+
+    if (data[0].affectedRows >= 1) {
+      let message = "Item created successful (Code OTP)";
+    response.success(req, res, message, 201);
+    } else {
+      let message = "Could't created code OTP";
+      response.error(req, res, message, 400)
+    }
+
+  } catch (err) {
+    next(err);
+  }
+};
+
+// Eliminar el Codigo OTP   PROBARLO
+const deleteCodeOTP = async (req, res, next) => {
+
+  try {
+    const data = await pool.query(`CALL sp_delete_codigo_otp(?);`, [
+      req.body.email,
+    ]);
+
+    if (data[0].affectedRows >= 1) {
+      let message = "Item deleted successful (Code OTP)";
+    response.success(req, res, message, 201);
+    } else {
+      let message = "Could't deleted code OTP";
+      response.error(req, res, message, 400)
+    }
+
+  } catch (err) {
+    next(err);
+  }
+};
+
+
+// ONLY USER
+
+/**
+ * Esta funcion sirve para crear cuentas de usuario
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const createUser = async (req, res, next) => {
+  req.body.password = await bcrypt.hash(req.body.password.toString(), 10);
+
+  try {
+    const data = await pool.query(`call sp_create_user(?, ?, ?, ?);`, [
+      req.body.email,
+      req.body.password,
+      req.body.nombre,
+      req.body.apellido,
+    ]);
+
+    if (data[0].affectedRows >= 1) {
+      let message = "Item create successful (user)";
+      response.success(req, res, message, 201);
+    } else {
+      let message = "Could't add the user";
+      response.error(req, res, message, 400)
+    }
+
+  } catch (err) {
+    next(err);
+  }
+};
+
+
+// Eliminar recuperar cuenta PROBARLO
+const deleteUser = async (req, res, next) => {
+  try {
+    const data = await pool.query(`CALL sp_delete_recuperar_cuenta(?)`, [
+      req.body.email,
+    ]);
+
+    if (data[0].affectedRows >= 1) {
+      let message = "Item delted successful (account)";
+      response.success(req, res, message, 201);
+    } else {
+      let message = "Could't deleted the account";
+      response.error(req, res, message, 400)
+    }
+
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
+ * Esta funcion sirve para crear el carrito de herramientas a pedir
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const createShopping = async (req, res, next) => {
+
+  try {
+    const data = await pool.query(`CALL sp_create_carrito_herramienta(?, ?, ?);`, [
+      req.body.cantidad_herramienta,
+      req.body.id_herramienta,
+      req.body.id_user,
+    ]);
+
+    if (data[0].affectedRows >= 1) {
+      let message = "Item create successful (shopping cart)";
+      response.success(req, res, message, 201);
+    } else {
+      let message = "Could't add Shopping Cart";
+      response.error(req, res, message, 400)
+    }
+
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
+ * Esta funcion sirve para crear los informes de solicitud de herramientas
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const createReportRequest = async (req, res, next) => {
+
+  try {
+    const data = await pool.query(`CALL sp_create_informe_solicitud(?, ?);`, [
+      req.body._numero_ficha,
+      req.body.id_user,
+    ]);
+
+    if (data[0].affectedRows >= 1) {
+      let message = "Item create successful (Report Request)";
+      response.success(req, res, message, 201);
+    } else {
+      let message = "Could't add Report Request";
+      response.error(req, res, message, 400)
+    }
+
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
+ * Esta funcion sirve para crear formularios para pedir una nueva herramienta
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const createFormNew = async (req, res, next) => {
+  try {
+    const data = await pool.query(`call sp_create_formulario_nueva_herramienta(?, ?, ?, ?);`, [
+      req.body.asunto,
+      req.body.cantidad,
+      req.body.descripcion,
+      req.body.id_user,
+    ]);
+
+    if (data[0].affectedRows >= 1) {
+      let message = "Item create successful (Form New Tool)";
+      response.success(req, res, message, 201);
+    } else {
+      let message = "Could't add Form New Tool";
+      response.error(req, res, message, 400)
+    }
+
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
+ * Esta funcion sirve para mostrar los formulario de nueva Herramienta para el usuario
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const ShowFormNewUser = async (req, res, next) => {
+  try {
+    const data = await pool.query(`CALL sp_read_formulario_nueva_herramienta_user(?);`, [
+      req.body.id_user,
+    ]);
+
+    let message = data[0][0];
+    response.success(req, res, message, 201);
+
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
+ * Esta funcion sirve para crear formularios de daño de herramienta
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const createFormDemage = async (req, res, next) => {
+  try {
+    const data = await pool.query(`call sp_create_formulario_dano_herramienta(?, ?, ?, ?, ?, ?);`, [
+      req.body.asunto,
+      req.body.cantidad,
+      req.body.imagen,
+      req.body.descripcion,
+      req.body.id_user,
+      req.body.id_herramienta,
+    ]);
+
+    if (data[0].affectedRows >= 1) {
+      let message = "Item create successful (Form Demage Tool)";
+      response.success(req, res, message, 201);
+    } else {
+      let message = "Could't add Form Demage Tool";
+      response.error(req, res, message, 400)
+    }
+
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
+ * Esta funcion sirve para mostrar los formularios de nueva herramienta para usuario
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const ShowFormDemageUser = async (req, res, next) => {
+  try {
+    const data = await pool.query(`CALL sp_read_formulario_dano_herramienta_user(?);`, [
+      req.body.id_user,
+    ]);
+
+    let message = data[0][0];
+    response.success(req, res, message, 201);
+
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
+ * Esta funcion sirve para enalazar las fichas correspondientes a cada usuario 
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const createUserFicha = async (req, res, next) => {
+  try {
+    const data = await pool.query(`CALL sp_create_user_ficha(?, ?)`, [
+      req.body.id_user,
+      req.body.numero_ficha,
+    ]);
+
+    let message = "Item created successful (User-Ficha)";
+    response.success(req, res, message, 201);
+
+  } catch (err) {
+    next(err);
+  };
+};
+
+/**
+ * Esta funcion sirve para ostrar las fichas que tiene cada usuario 
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const showFichasUser = async (req, res, next) => {
+  try {
+    const data = await pool.query(`CALL sp_read_user_ficha(?)`, [
+      req.body.id_user,
+    ]);
+
+    let message = data[0][0];
+    response.success(req, res, message, 201);
+
+  } catch (err) {
+    next(err);
+  };
+};
+
+
+
+export default {
+  login,
+  updateAccounts,
+  createCodeOTP,
+  deleteCodeOTP,
+  createUser,
+  deleteUser,
+  createShopping,
+  createReportRequest,
+  createFormNew,
+  ShowFormNewUser,
+  createFormDemage,
+  ShowFormDemageUser,
+  showFichasUser,
+  createUserFicha
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ctl-admin.html">ctl-admin</a></li><li><a href="module-ctl-tool.html">ctl-tool</a></li><li><a href="module-ctl-user.html">ctl-user</a></li></ul><h3>Global</h3><ul><li><a href="global.html#dbconfig">dbconfig</a></li><li><a href="global.html#router">router</a></li><li><a href="global.html#routerAdmin">routerAdmin</a></li><li><a href="global.html#routerTool">routerTool</a></li><li><a href="global.html#routerUser">routerUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Sat Jun 29 2024 22:42:02 GMT-0500 (hora estándar de Colombia)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

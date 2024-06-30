@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: models/database.js</title>
+    <title>JSDoc: Source: routes/routes.tool.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: models/database.js</h1>
+    <h1 class="page-title">Source: routes/routes.tool.js</h1>
 
     
 
@@ -26,23 +26,22 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { createPool } from "mysql2/promise";
-import config from "../config/index.js";
+            <pre class="prettyprint source linenums"><code>import tool from "../controllers/controller.tool.js";
+import express from "express";
 
 /**
- * Sirve para conectarme a mi base de datos
+ * Esta es la ruta de las herramientas
  * @type {object}
  */
-const dbconfig = {
-  port: config.mysql.port,
-  host: config.mysql.host,
-  user: config.mysql.user,
-  password: config.mysql.password,
-  database: config.mysql.database,
-};
+const routerTool = express.Router();
 
-export const pool = createPool(dbconfig);
-</code></pre>
+// ROUTES
+routerTool.post("/tool", tool.createTool);
+routerTool.put("/tool", tool.updateTool);
+routerTool.delete("/tool", tool.deleteTool);
+routerTool.get("/tool", tool.showTool);
+
+export default routerTool;</code></pre>
         </article>
     </section>
 

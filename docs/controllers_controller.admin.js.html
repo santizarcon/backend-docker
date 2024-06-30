@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: controllers/controller.admin.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: controllers/controller.admin.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Este es el controlador para el administrador
+ * @module ctl-admin
+ */
+import bcrypt from "bcrypt";
+import response from "../messages/responses.js";
+import { pool } from "../models/database.js";
+
+
+/**
+ * Esta funcion sirve para crear cuentas de SubAdmin
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const createSubAdmin = async (req, res, next) => {
+  req.body.password = await bcrypt.hash(req.body.password.toString(), 10);
+
+  try {
+    const data = await pool.query(`call sp_create_subAdmin(?, ?, ?, ?);`, [
+      req.body.email,
+      req.body.password,
+      req.body.nombre,
+      req.body.apellido,
+    ]);
+
+    if (data[0].affectedRows >= 1) {
+      let message = "Item create successful (subAdmin)";
+      response.success(req, res, message, 201);
+    } else {
+      let message = "Could't add the new subAdmin";
+      response.error(req, res, message, 400);
+    };
+
+  } catch (err) {
+    next(err);
+  };
+
+};
+
+
+// Actualizar el estado del Informe de solicitud PROBARLO
+const updateStateReport = async(req, res, next) =>{
+  try {
+    const data = await pool.query(`CALL sp_update_informe_solicitud(?, ?)`, [
+      req.body.id,
+      req.body.estado,
+    ]);
+
+    if (data[0].affectedRows >= 1) {
+      let message = "Item updated successful (Request Report)";
+      response.success(req, res, message, 201);
+    } else {
+      let message = "Could't updated the Request Report";
+      response.error(req, res, message, 400);
+    };
+
+  } catch (err) {
+    next(err);
+  };
+};
+
+// Actualizar los Responsable de la Herramientas PROBARLO
+const updateResponsible = async(req, res, next) =>{
+  try {
+    const data = await pool.query(`CALL sp_update_responsabilidad_herramienta(?, ?)`, [
+      req.body.id,
+      req.body.id_user,
+    ]);
+
+    if (data[0].affectedRows >= 1) {
+      let message = "Item updated successful (Tool Manager)";
+      response.success(req, res, message, 201);
+    } else {
+      let message = "Could't updated the Tool Manager";
+      response.error(req, res, message, 400);
+    };
+
+  } catch (err) {
+    next(err);
+  };
+};
+
+/**
+ * Esta funcion sirve para mostrar los formularios de peticion para una nueva herramienta
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const showFormNew = async(req, res, next) =>{
+  try {
+    const data = await pool.query(`CALL sp_read_formulario_nueva_herramienta()`);
+
+    let message = data[0][0];
+    response.success(req, res, message, 201);
+
+  } catch (err) {
+    next(err);
+  };
+};
+
+/**
+ * Esta funcion sirve para mostrar los formularios de reporte de daños de herramientas
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const showFormDemage = async(req, res, next) =>{
+  try {
+    const data = await pool.query(`CALL sp_read_formulario_daño_herramienta()`);
+
+    let message = data[0][0];
+    response.success(req, res, message, 201);
+
+  } catch (err) {
+    next(err);
+  };
+};
+
+/**
+ * Esta funcion sirve para mostrar todas cuentas 
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const showAccounts = async (req, res, next) => {
+  try {
+    const data = await pool.query(`CALL sp_read_cuentas()`);
+
+    let message = data[0][0];
+    response.success(req, res, message, 201);
+
+  } catch (err) {
+    next(err);
+  };
+};
+
+/**
+ * Esta funcion sirve para pasar las cuentas a la tabla cuentas eliminadas, para eliminarlas en un tiempo determinado
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const delteAccounts = async (req, res, next) => {
+  try {
+    const data = await pool.query(`CALL sp_create_cuentas_eliminadas(?, ?)`,[
+      req.body.id_user,
+      req.body.id_admin,
+    ]);
+
+    if (data[0].affectedRows >= 1) {
+      let message = "Item create successful (User to delete)";
+      response.success(req, res, message, 201);
+    } else {
+      let message = "Could't add the new user for delete";
+      response.error(req, res, message, 400);
+    };
+
+  } catch (err) {
+    next(err);
+  };
+};
+
+/**
+ * Esta funcion sirve para crear nuevas fichas 
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const createficha = async (req, res, next) => {
+  try {
+    const data = await pool.query(`CALL sp_create_fichas(?, ?, ?, ?, ?)`, [
+      req.body.numero_ficha,
+      req.body.cantidad_aprendices,
+      req.body.nivel_formacion,
+      req.body.programa_formacion,
+      req.body.ambiente,
+    ]);
+
+    if (data[0].affectedRows >= 1) {
+      let message = "Item create successful (ficha)";
+      response.success(req, res, message, 201);
+    } else {
+      let message = "Could't add the new ficha";
+      response.error(req, res, message, 400);
+    };
+
+
+  } catch (err) {
+    next(err);
+  };
+};
+
+
+/**
+ * Esta funcion sirve para eliminar fichas
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const deleteFicha = async (req, res, next) => {
+  try {
+    const data = await pool.query(`CALL sp_delete_fichas(?)`, [
+      req.body.numero_ficha,
+    ]);
+
+    if (data[0].affectedRows >= 1) {
+      let message = "Item deleted successful (ficha)";
+      response.success(req, res, message, 201);
+    } else {
+      let message = "Could't deleted the ficha";
+      response.error(req, res, message, 400);
+    };
+
+
+  } catch (err) {
+    next(err);
+  };
+};
+
+/**
+ * Esta funcion sirve para actualizar los datos de las fichas
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const updateFicha = async (req, res, next) => {
+  try {
+    const data = await pool.query(`CALL sp_update_fichas(?, ?, ?, ?, ?, ?, ?)`, [
+      req.body.id,
+      req.body.numero_ficha,
+      req.body.cantidad_aprendices,
+      req.body.nivel_formacion,
+      req.body.programa_formacion,
+      req.body.ambiente,
+      req.body.estado,
+    ]);
+
+    if (data[0].affectedRows >= 1) {
+      let message = "Item updated successful (ficha)";
+      response.success(req, res, message, 201);
+    } else {
+      let message = "Could't updated the ficha";
+      response.error(req, res, message, 400);
+    };
+
+
+  } catch (err) {
+    next(err);
+  };
+};
+
+/**
+ * Esta funcion sirve mostrar todas las fichas
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const showFichas = async (req, res, next) => {
+  try {
+    const data = await pool.query(`CALL sp_read_fichas()`);
+
+    let message = data[0][0];
+    response.success(req, res, message, 201);
+
+  } catch (err) {
+    next(err);
+  };
+};
+
+
+export default {
+  createSubAdmin,
+  updateStateReport,
+  showFormNew,
+  showFormDemage,
+  showAccounts,
+  updateResponsible,
+  delteAccounts,
+  createficha,
+  deleteFicha,
+  updateFicha,
+  showFichas
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ctl-admin.html">ctl-admin</a></li><li><a href="module-ctl-tool.html">ctl-tool</a></li><li><a href="module-ctl-user.html">ctl-user</a></li></ul><h3>Global</h3><ul><li><a href="global.html#dbconfig">dbconfig</a></li><li><a href="global.html#router">router</a></li><li><a href="global.html#routerAdmin">routerAdmin</a></li><li><a href="global.html#routerTool">routerTool</a></li><li><a href="global.html#routerUser">routerUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Sat Jun 29 2024 22:42:02 GMT-0500 (hora estándar de Colombia)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
