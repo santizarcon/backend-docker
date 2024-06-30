@@ -16,11 +16,12 @@ var verifyToken = function verifyToken(token) {
   return _jsonwebtoken["default"].verify(token, secret);
 };
 var checkToken = exports.checkToken = {
-  confirmToken: function confirmToken(req, id) {
+  confirmToken: function confirmToken(req) {
     var decoded = decodeHeader(req);
-    if (decoded.id !== id) {
-      throw (0, _errors.error)("You don't have privileges to do this", 401);
-    }
+
+    // if (decoded.id !== id) {
+    //   throw error("You don't have privileges to do this", 401);
+    // }
   }
 };
 var getToken = function getToken(authorization) {

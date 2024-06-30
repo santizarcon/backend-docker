@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "doc": "jsdoc -c jsdoc.json",
     "dev": "nodemon ./src/index.js --exec babel-node",
+    "swaggerdev": "node ./src/tools/swagger.js",
     "build": "babel src --out-dir dist",
-    "start": "node ./dist/index.js --exec babel-node",
-    "swagger": "node ./src/tools/swagger.js",
-    "doc": "jsdoc -c jsdoc.json"
+    "swagger": "node ./dist/tools/swagger.js",
+    "start": "node ./dist/index.js"
   },
   "keywords": [],
   "author": "",
