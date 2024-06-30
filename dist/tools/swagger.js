@@ -2,12 +2,11 @@
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 var _swaggerAutogen = _interopRequireDefault(require("swagger-autogen"));
-var _dotenv = require("dotenv");
-(0, _dotenv.config)();
-var port = process.env.PORT || 3000;
+var _config = _interopRequireDefault(require("../config"));
+var port = _config["default"].app.port;
 var doc = {
   info: {
-    title: "Seguridad",
+    title: "BACKEND",
     description: "manejo de usuarios"
   },
   host: "localhost:" + port + "/api"

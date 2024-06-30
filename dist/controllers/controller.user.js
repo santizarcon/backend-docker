@@ -597,9 +597,9 @@ var showFichasUser = /*#__PURE__*/function () {
  * @param {object} res Envia peticiones en HTML
  */
 var validarToken = function validarToken(req, res) {
-  success(req, res, 200, {
+  _responses["default"].success(req, res, {
     "token": "El token es valido"
-  });
+  }, 200);
 };
 var _default = exports["default"] = {
   login: login,
