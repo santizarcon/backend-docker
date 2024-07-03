@@ -148,7 +148,7 @@ const createUser = async (req, res, next) => {
       response.success(req, res, message, 201);
     } else {
       let message = "Could't add the user";
-      response.error(req, res, message, 400)
+      response.error(req, res, message, 400);
     }
 
   } catch (err) {
