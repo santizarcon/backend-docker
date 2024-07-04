@@ -1,8 +1,7 @@
 import swaggerAutogen from "swagger-autogen";
-import { config } from "dotenv";
-config();
+import config from "../config";
 
-let port = process.env.PORT || 3000;
+let port = config.app.port;
 
 const doc = {
   info: {
