@@ -11,7 +11,7 @@ var _default = exports["default"] = {
     port: process.env.PORT
   },
   jwt: {
-    secret: process.env.JET_SECRET
+    secret: process.env.JWT_SECRET
   },
   mysql: {
     port: process.env.MYSQL_ADDON_PORT,

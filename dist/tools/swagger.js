@@ -7,7 +7,7 @@ var _dotenv = require("dotenv");
 var port = process.env.PORT || 3000;
 var doc = {
   info: {
-    title: "Seguridad",
+    title: "BACKEND",
     description: "manejo de usuarios"
   },
   host: "localhost:" + port + "/api"

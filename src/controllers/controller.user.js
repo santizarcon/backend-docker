@@ -38,7 +38,8 @@ const login = async (req, res, next) => {
     }
 
     const token = assignToken(data[0][0][0]);
-    response.success(req, res, token, 200);
+    const info = data[0][0];
+    response.success(req, res, {token, info}, 200);
   } catch (err) {
     next(err);
   }
@@ -148,7 +149,7 @@ const createUser = async (req, res, next) => {
       response.success(req, res, message, 201);
     } else {
       let message = "Could't add the user";
-      response.error(req, res, message, 400);
+      response.error(req, res, message, 400)
     }
 
   } catch (err) {
