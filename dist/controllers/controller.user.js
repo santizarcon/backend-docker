@@ -26,7 +26,7 @@ var _database = require("../models/database.js");
  */
 var login = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res, next) {
-    var data, message, match, _message, token;
+    var data, message, match, _message, token, info;
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -56,18 +56,22 @@ var login = /*#__PURE__*/function () {
           return _context.abrupt("return");
         case 15:
           token = (0, _auth.assignToken)(data[0][0][0]);
-          _responses["default"].success(req, res, token, 200);
-          _context.next = 22;
+          info = data[0][0];
+          _responses["default"].success(req, res, {
+            token: token,
+            info: info
+          }, 200);
+          _context.next = 23;
           break;
-        case 19:
-          _context.prev = 19;
+        case 20:
+          _context.prev = 20;
           _context.t0 = _context["catch"](0);
           next(_context.t0);
-        case 22:
+        case 23:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 19]]);
+    }, _callee, null, [[0, 20]]);
   }));
   return function login(_x, _x2, _x3) {
     return _ref.apply(this, arguments);
