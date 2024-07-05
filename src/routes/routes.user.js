@@ -13,12 +13,13 @@ const routerUser = express.Router();
 routerUser.post("/login", user.login);
 
 routerUser.put("/account", user.updateAccounts);
+
 routerUser.post("/sendOTP", user.sendMail);
 routerUser.put("/recoverPassword", user.recoverPassword);
 
 // ONLY USER
 routerUser.post("/user", user.createUser);
-routerUser.delete("/user", user.deleteUser); // PROBARLO
+routerUser.delete("/user", user.deleteUser); 
 
 routerUser.post("/shopping", user.createShopping);
 routerUser.post("/reportRequest", user.createReportRequest);
