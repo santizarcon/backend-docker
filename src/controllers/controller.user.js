@@ -150,6 +150,12 @@ const createUser = async (req, res, next) => {
   }
 };
 
+/**
+ * Esta funcion sirve para eliminar el inactivo de los usuarios
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
 // Eliminar recuperar cuenta PROBARLO pregunta si o no y listo
 const deleteUser = async (req, res, next) => {
   try {
