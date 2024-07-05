@@ -157,8 +157,12 @@ const createUser = async (req, res, next) => {
   }
 };
 
-
-// Eliminar recuperar cuenta PROBARLO pregunta si o no y listo
+/**
+ * Esta funcion sirve para eliminar el inactivo de los usuarios
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
 const deleteUser = async (req, res, next) => {
   try {
     const data = await pool.query(`CALL sp_delete_recuperar_cuenta(?)`, [
