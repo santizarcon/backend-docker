@@ -5,8 +5,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-var _controllerUser = _interopRequireDefault(require("../controllers/controller.user.js"));
 var _express = _interopRequireDefault(require("express"));
+var _controllerUser = _interopRequireDefault(require("../controllers/controller.user.js"));
+var _otp = require("../middleware/otp.js");
 var _security = require("../services/security.js");
 /**
  * Esta es la ruta del usuario
@@ -17,8 +18,8 @@ var routerUser = _express["default"].Router();
 // RUTAS
 routerUser.post("/login", _controllerUser["default"].login);
 routerUser.put("/account", _controllerUser["default"].updateAccounts);
-routerUser.post("/account", _controllerUser["default"].createCodeOTP);
-routerUser["delete"]("/account", _controllerUser["default"].deleteCodeOTP); // PROBARLO
+routerUser.post("/sendOTP", _controllerUser["default"].sendMail);
+routerUser.put("/recoverPassword", _controllerUser["default"].recoverPassword);
 
 // ONLY USER
 routerUser.post("/user", _controllerUser["default"].createUser);
@@ -35,5 +36,6 @@ routerUser.get("/fichaUser", _controllerUser["default"].showFichasUser);
 
 // checkAuth
 // Para validar el token
-routerUser.post("/oauth", _security.checkAuth, _controllerUser["default"].validarToken);
+routerUser.post("/oauth", _security.checkAuth, _controllerUser["default"].validateToken);
+routerUser.post("/oauthOTP", _otp.checkOTP);
 var _default = exports["default"] = routerUser;

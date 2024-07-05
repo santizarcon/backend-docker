@@ -83,8 +83,15 @@ const updateAccounts = async (req, res, next) => {
  * @param {object} res Envia peticiones en HTML
  * @param {object} next Sirve para pasar a la siguiente instruccion
  */
-const sendMail = (req, res, next) => {
+const sendMail = async (req, res, next) => {
   try {
+    const data = await pool.query(`CALL sp_read_logueo(?);`, [req.body.email]);
+    if (data[0][0] === 0) {
+      let message = "Email doesn't exist";
+      response.error(req, res, message, 404);
+      return;
+    }
+
     const otp = generateCodeOTP();
     sendOTP(req.body.email, otp);
     let message = "Otp sent to email: " + req.body.email;

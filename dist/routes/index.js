@@ -21,5 +21,5 @@ var router = (0, _express.Router)();
 router.use("/api", _routesUser["default"]);
 router.use("/api", _routesAdmin["default"]);
 router.use("/api", _routesTool["default"]);
-router.use('/doc', _swaggerUiExpress["default"].serve, _swaggerUiExpress["default"].setup(_swaggerOutput["default"]));
+router.use("/doc", _swaggerUiExpress["default"].serve, _swaggerUiExpress["default"].setup(_swaggerOutput["default"]));
 var _default = exports["default"] = router;

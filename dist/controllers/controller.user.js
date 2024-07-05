@@ -8,8 +8,10 @@ exports["default"] = void 0;
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 var _bcrypt = _interopRequireDefault(require("bcrypt"));
-var _auth = require("../middleware/auth.js");
 var _responses = _interopRequireDefault(require("../messages/responses.js"));
+var _auth = require("../middleware/auth.js");
+var _mail = require("../middleware/mail.js");
+var _otp = require("../middleware/otp.js");
 var _database = require("../models/database.js");
 /**
  * Este es el controlador para el usuario
@@ -124,83 +126,91 @@ var updateAccounts = /*#__PURE__*/function () {
 }();
 
 /**
- * Esta funcion sirve para crear el codigo OTP, para recuperar la contraseña
+ * Esta funcion sirve para crear y enviar el codigo OTP, para recuperar la
+ * contraseña
  * @param {object} req Captura peticiones en HTML
  * @param {object} res Envia peticiones en HTML
  * @param {object} next Sirve para pasar a la siguiente instruccion
  */
-var createCodeOTP = /*#__PURE__*/function () {
+var sendMail = /*#__PURE__*/function () {
   var _ref3 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res, next) {
-    var data, message, _message3;
+    var data, _message3, otp, message;
     return _regenerator["default"].wrap(function _callee3$(_context3) {
       while (1) switch (_context3.prev = _context3.next) {
         case 0:
           _context3.prev = 0;
           _context3.next = 3;
-          return _database.pool.query("CALL sp_create_codigo_otp(?, ?);", [req.body.codigo, req.body.email]);
+          return _database.pool.query("CALL sp_read_logueo(?);", [req.body.email]);
         case 3:
           data = _context3.sent;
-          if (data[0].affectedRows >= 1) {
-            message = "Item created successful (Code OTP)";
-            _responses["default"].success(req, res, message, 201);
-          } else {
-            _message3 = "Could't created code OTP";
-            _responses["default"].error(req, res, _message3, 400);
+          if (!(data[0][0] === 0)) {
+            _context3.next = 8;
+            break;
           }
-          _context3.next = 10;
+          _message3 = "Email doesn't exist";
+          _responses["default"].error(req, res, _message3, 404);
+          return _context3.abrupt("return");
+        case 8:
+          otp = (0, _otp.generateCodeOTP)();
+          (0, _mail.sendOTP)(req.body.email, otp);
+          message = "Otp sent to email: " + req.body.email;
+          _responses["default"].success(req, res, message, 200);
+          _context3.next = 17;
           break;
-        case 7:
-          _context3.prev = 7;
+        case 14:
+          _context3.prev = 14;
           _context3.t0 = _context3["catch"](0);
           next(_context3.t0);
-        case 10:
+        case 17:
         case "end":
           return _context3.stop();
       }
-    }, _callee3, null, [[0, 7]]);
+    }, _callee3, null, [[0, 14]]);
   }));
-  return function createCodeOTP(_x7, _x8, _x9) {
+  return function sendMail(_x7, _x8, _x9) {
     return _ref3.apply(this, arguments);
   };
 }();
 
-// Eliminar el Codigo OTP   PROBARLO
-var deleteCodeOTP = /*#__PURE__*/function () {
+// Recuperar contraseña PROBARLO
+var recoverPassword = /*#__PURE__*/function () {
   var _ref4 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(req, res, next) {
     var data, message, _message4;
     return _regenerator["default"].wrap(function _callee4$(_context4) {
       while (1) switch (_context4.prev = _context4.next) {
         case 0:
-          _context4.prev = 0;
-          _context4.next = 3;
-          return _database.pool.query("CALL sp_delete_codigo_otp(?);", [req.body.email]);
-        case 3:
+          _context4.next = 2;
+          return _bcrypt["default"].hash(req.body.password.toString(), 10);
+        case 2:
+          req.body.password = _context4.sent;
+          _context4.prev = 3;
+          _context4.next = 6;
+          return _database.pool.query("CALL sp_update_cuentas(?, ?, ?, ?, ?);", [req.body.email, req.body.password, "", "", ""]);
+        case 6:
           data = _context4.sent;
           if (data[0].affectedRows >= 1) {
-            message = "Item deleted successful (Code OTP)";
+            message = "Item updated successful (password)";
             _responses["default"].success(req, res, message, 201);
           } else {
-            _message4 = "Could't deleted code OTP";
+            _message4 = "Could't updated password";
             _responses["default"].error(req, res, _message4, 400);
           }
-          _context4.next = 10;
+          _context4.next = 13;
           break;
-        case 7:
-          _context4.prev = 7;
-          _context4.t0 = _context4["catch"](0);
-          next(_context4.t0);
         case 10:
+          _context4.prev = 10;
+          _context4.t0 = _context4["catch"](3);
+          next(_context4.t0);
+        case 13:
         case "end":
           return _context4.stop();
       }
-    }, _callee4, null, [[0, 7]]);
+    }, _callee4, null, [[3, 10]]);
   }));
-  return function deleteCodeOTP(_x10, _x11, _x12) {
+  return function recoverPassword(_x10, _x11, _x12) {
     return _ref4.apply(this, arguments);
   };
 }();
-
-// ONLY USER
 
 /**
  * Esta funcion sirve para crear cuentas de usuario
@@ -208,6 +218,7 @@ var deleteCodeOTP = /*#__PURE__*/function () {
  * @param {object} res Envia peticiones en HTML
  * @param {object} next Sirve para pasar a la siguiente instruccion
  */
+// ONLY USER
 var createUser = /*#__PURE__*/function () {
   var _ref5 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(req, res, next) {
     var data, message, _message5;
@@ -253,6 +264,7 @@ var createUser = /*#__PURE__*/function () {
  * @param {object} res Envia peticiones en HTML
  * @param {object} next Sirve para pasar a la siguiente instruccion
  */
+// Eliminar recuperar cuenta PROBARLO pregunta si o no y listo
 var deleteUser = /*#__PURE__*/function () {
   var _ref6 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee6(req, res, next) {
     var data, message, _message6;
@@ -525,7 +537,7 @@ var ShowFormDemageUser = /*#__PURE__*/function () {
 }();
 
 /**
- * Esta funcion sirve para enlazar las fichas correspondientes a cada usuario 
+ * Esta funcion sirve para enlazar las fichas correspondientes a cada usuario
  * @param {object} req Captura peticiones en HTML
  * @param {object} res Envia peticiones en HTML
  * @param {object} next Sirve para pasar a la siguiente instruccion
@@ -550,8 +562,6 @@ var createUserFicha = /*#__PURE__*/function () {
           _context13.t0 = _context13["catch"](0);
           next(_context13.t0);
         case 11:
-          ;
-        case 12:
         case "end":
           return _context13.stop();
       }
@@ -563,7 +573,7 @@ var createUserFicha = /*#__PURE__*/function () {
 }();
 
 /**
- * Esta funcion sirve para mostrar las fichas que tiene cada usuario 
+ * Esta funcion sirve para mostrar las fichas que tiene cada usuario
  * @param {object} req Captura peticiones en HTML
  * @param {object} res Envia peticiones en HTML
  * @param {object} next Sirve para pasar a la siguiente instruccion
@@ -588,8 +598,6 @@ var showFichasUser = /*#__PURE__*/function () {
           _context14.t0 = _context14["catch"](0);
           next(_context14.t0);
         case 11:
-          ;
-        case 12:
         case "end":
           return _context14.stop();
       }
@@ -601,20 +609,20 @@ var showFichasUser = /*#__PURE__*/function () {
 }();
 
 /**
- * Esta funcion sirve para mostrar un mensaje de que el token si es valido 
+ * Esta funcion sirve para mostrar un mensaje de que el token si es valido
  * @param {object} req Captura peticiones en HTML
  * @param {object} res Envia peticiones en HTML
  */
-var validarToken = function validarToken(req, res) {
+var validateToken = function validateToken(req, res) {
   _responses["default"].success(req, res, {
-    "token": "El token es valido"
+    token: "El token es valido"
   }, 200);
 };
 var _default = exports["default"] = {
   login: login,
   updateAccounts: updateAccounts,
-  createCodeOTP: createCodeOTP,
-  deleteCodeOTP: deleteCodeOTP,
+  sendMail: sendMail,
+  recoverPassword: recoverPassword,
   createUser: createUser,
   deleteUser: deleteUser,
   createShopping: createShopping,
@@ -625,5 +633,5 @@ var _default = exports["default"] = {
   ShowFormDemageUser: ShowFormDemageUser,
   showFichasUser: showFichasUser,
   createUserFicha: createUserFicha,
-  validarToken: validarToken
+  validateToken: validateToken
 };
