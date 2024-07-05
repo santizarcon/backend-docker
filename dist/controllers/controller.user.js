@@ -247,7 +247,12 @@ var createUser = /*#__PURE__*/function () {
   };
 }();
 
-// Eliminar recuperar cuenta PROBARLO pregunta si o no y listo
+/**
+ * Esta funcion sirve para eliminar el inactivo de los usuarios
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
 var deleteUser = /*#__PURE__*/function () {
   var _ref6 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee6(req, res, next) {
     var data, message, _message6;

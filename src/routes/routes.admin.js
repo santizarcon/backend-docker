@@ -20,7 +20,7 @@ routerAdmin.put("/accounts", admin.updateResponsible);// PROBARLO
 routerAdmin.post("/accounts", admin.delteAccounts);
 
 routerAdmin.post("/ficha", admin.createficha);
-routerAdmin.get("/ficha",checkAuth, admin.showFichas);
+routerAdmin.get("/ficha", admin.showFichas);
 routerAdmin.delete("/ficha", admin.deleteFicha);
 routerAdmin.put("/ficha", admin.updateFicha);
 
