@@ -119,14 +119,13 @@ const recoverPassword = async (req, res, next) => {
   }
 };
 
-// ONLY USER
-
 /**
  * Esta funcion sirve para crear cuentas de usuario
  * @param {object} req Captura peticiones en HTML
  * @param {object} res Envia peticiones en HTML
  * @param {object} next Sirve para pasar a la siguiente instruccion
  */
+// ONLY USER
 const createUser = async (req, res, next) => {
   req.body.password = await bcrypt.hash(req.body.password.toString(), 10);
 
