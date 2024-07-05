@@ -16,6 +16,7 @@ var routerAdmin = _express["default"].Router();
 
 // RUTAS
 routerAdmin.post("/admin", _controllerAdmin["default"].createSubAdmin);
+routerAdmin.get("/admin", _controllerAdmin["default"].showInfoAdmin); // PROBARLO
 routerAdmin.put("/admin", _controllerAdmin["default"].updateStateReport); // PROBARLO
 
 routerAdmin.get("/formNew", _controllerAdmin["default"].showFormNew);
