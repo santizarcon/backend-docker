@@ -20,6 +20,7 @@ routerUser.put("/recoverPassword", user.recoverPassword);
 // ONLY USER
 routerUser.post("/user", user.createUser);
 routerUser.delete("/user", user.deleteUser); 
+routerUser.get("/user", user.showInfoUser); 
 
 routerUser.post("/shopping", user.createShopping);
 routerUser.post("/reportRequest", user.createReportRequest);

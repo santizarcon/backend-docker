@@ -181,6 +181,29 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
+
+/**
+ * Esta funcion sirve para mostrara los datos dependiendo del el id USER
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const showInfoUser = async (req, res, next) => {
+
+  try {
+    const data = await pool.query(`call sp_read_user(?);`, [
+      req.body.id,
+    ]);
+
+    let message = data[0][0];
+    response.success(req, res, message, 201);
+
+  } catch (err) {
+    next(err);
+  };
+
+};
+
 /**
  * Esta funcion sirve para crear el carrito de herramientas a pedir
  * @param {object} req Captura peticiones en HTML
@@ -388,6 +411,7 @@ export default {
   recoverPassword,
   createUser,
   deleteUser,
+  showInfoUser,
   createShopping,
   createReportRequest,
   createFormNew,

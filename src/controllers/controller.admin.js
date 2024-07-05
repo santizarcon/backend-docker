@@ -38,6 +38,28 @@ const createSubAdmin = async (req, res, next) => {
 
 };
 
+/**
+ * Esta funcion sirve para mostrara los datos dependiendo del el id ADMIN
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const showInfoAdmin = async (req, res, next) => {
+
+  try {
+    const data = await pool.query(`call sp_read_admin(?);`, [
+      req.body.id,
+    ]);
+
+    let message = data[0][0];
+    response.success(req, res, message, 201);
+
+  } catch (err) {
+    next(err);
+  };
+
+};
+
 
 // Actualizar el estado del Informe de solicitud PROBARLO
 const updateStateReport = async(req, res, next) =>{
@@ -271,6 +293,7 @@ const showFichas = async (req, res, next) => {
 
 export default {
   createSubAdmin,
+  showInfoAdmin,
   updateStateReport,
   showFormNew,
   showFormDemage,
