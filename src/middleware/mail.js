@@ -1,5 +1,4 @@
 import nodemailer from "nodemailer";
-import responses from "../messages/responses";
 
 export const sendOTP = (email, otp) => {
   const transporter = nodemailer.createTransport({
@@ -22,11 +21,5 @@ export const sendOTP = (email, otp) => {
     text: `Tu OTP es: ${otp}`,
   };
 
-  transporter.sendMail(mailOptions, (error) => {
-    if (error) {
-      responses.error(req, res, error, 500);
-    } else {
-      responses.success(req, res, { "Correo enviado: ": email }, 200);
-    }
-  });
+  transporter.sendMail(mailOptions);
 };

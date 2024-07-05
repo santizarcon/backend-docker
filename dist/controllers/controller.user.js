@@ -143,7 +143,7 @@ var sendMail = /*#__PURE__*/function () {
           return _database.pool.query("CALL sp_read_logueo(?);", [req.body.email]);
         case 3:
           data = _context3.sent;
-          if (!(data[0][0] === 0)) {
+          if (!(!data[0][0] >= 1)) {
             _context3.next = 8;
             break;
           }

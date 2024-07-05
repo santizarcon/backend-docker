@@ -86,7 +86,7 @@ const updateAccounts = async (req, res, next) => {
 const sendMail = async (req, res, next) => {
   try {
     const data = await pool.query(`CALL sp_read_logueo(?);`, [req.body.email]);
-    if (data[0][0] === 0) {
+    if (!data[0][0] >= 1) {
       let message = "Email doesn't exist";
       response.error(req, res, message, 404);
       return;

@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.sendOTP = void 0;
 var _nodemailer = _interopRequireDefault(require("nodemailer"));
-var _responses = _interopRequireDefault(require("../messages/responses"));
 var sendOTP = exports.sendOTP = function sendOTP(email, otp) {
   var transporter = _nodemailer["default"].createTransport({
     service: "gmail",
@@ -24,13 +23,5 @@ var sendOTP = exports.sendOTP = function sendOTP(email, otp) {
     subject: "Tu OTP",
     text: "Tu OTP es: ".concat(otp)
   };
-  transporter.sendMail(mailOptions, function (error) {
-    if (error) {
-      _responses["default"].error(req, res, error, 500);
-    } else {
-      _responses["default"].success(req, res, {
-        "Correo enviado: ": email
-      }, 200);
-    }
-  });
+  transporter.sendMail(mailOptions);
 };
