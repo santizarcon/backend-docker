@@ -23,7 +23,8 @@ routerUser.put("/recoverPassword", _controllerUser["default"].recoverPassword);
 
 // ONLY USER
 routerUser.post("/user", _controllerUser["default"].createUser);
-routerUser["delete"]("/user", _controllerUser["default"].deleteUser);
+routerUser["delete"]("/user", _controllerUser["default"].deleteUser); // PROBARLO
+
 routerUser.post("/shopping", _controllerUser["default"].createShopping);
 routerUser.post("/reportRequest", _controllerUser["default"].createReportRequest);
 routerUser.post("/formNewUser", _controllerUser["default"].createFormNew);

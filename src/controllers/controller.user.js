@@ -101,7 +101,12 @@ const sendMail = async (req, res, next) => {
   }
 };
 
-// Recuperar contraseña PROBARLO
+/**
+ * Esta funcion sirve para ecuperar contraseña
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
 const recoverPassword = async (req, res, next) => {
   req.body.password = await bcrypt.hash(req.body.password.toString(), 10);
 
