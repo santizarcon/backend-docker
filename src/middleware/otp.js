@@ -23,6 +23,6 @@ export const checkOTP = (req, res) => {
     responses.success(req, res, message, 200);
   } else {
     let message = "The OTP code is invalid or has expired";
-    responses.success(req, res, message, 200);
+    responses.error(req, res, message, 500);
   }
 };
