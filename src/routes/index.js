@@ -3,7 +3,7 @@ import routerUser from "./routes.user.js";
 import routerAdmin from "./routes.admin.js";
 import routerTool from "./routes.tool.js";
 import swaggerUi from "swagger-ui-express";
-import swaggerFile from '../tools/swagger-output.json';
+import swaggerFile from "../tools/swagger-output.json";
 
 /**
  * Esta es la ruta principal de mi proyecto
@@ -15,7 +15,6 @@ const router = Router();
 router.use("/api", routerUser);
 router.use("/api", routerAdmin);
 router.use("/api", routerTool);
-router.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
-
+router.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 export default router;
