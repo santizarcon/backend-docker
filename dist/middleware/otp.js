@@ -27,6 +27,6 @@ var checkOTP = exports.checkOTP = function checkOTP(req, res) {
     _responses["default"].success(req, res, message, 200);
   } else {
     var _message = "The OTP code is invalid or has expired";
-    _responses["default"].success(req, res, _message, 200);
+    _responses["default"].error(req, res, _message, 500);
   }
 };
