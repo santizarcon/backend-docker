@@ -2,11 +2,13 @@
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 Object.defineProperty(exports, "__esModule", {
-  value: true
+  value: true,
 });
 exports["default"] = void 0;
 var _express = _interopRequireDefault(require("express"));
-var _controllerUser = _interopRequireDefault(require("../controllers/controller.user.js"));
+var _controllerUser = _interopRequireDefault(
+  require("../controllers/controller.user.js")
+);
 var _otp = require("../middleware/otp.js");
 var _security = require("../services/security.js");
 /**
@@ -23,19 +25,31 @@ routerUser.put("/recoverPassword", _controllerUser["default"].recoverPassword);
 
 // ONLY USER
 routerUser.post("/user", _controllerUser["default"].createUser);
+
 routerUser["delete"]("/user", _controllerUser["default"].deleteUser);
 routerUser.get("/user", _controllerUser["default"].showInfoUser);
+
 routerUser.post("/shopping", _controllerUser["default"].createShopping);
-routerUser.post("/reportRequest", _controllerUser["default"].createReportRequest);
+routerUser.post(
+  "/reportRequest",
+  _controllerUser["default"].createReportRequest
+);
 routerUser.post("/formNewUser", _controllerUser["default"].createFormNew);
 routerUser.get("/formNewUser", _controllerUser["default"].ShowFormNewUser);
 routerUser.post("/formDemageUser", _controllerUser["default"].createFormDemage);
-routerUser.get("/formDemageUser", _controllerUser["default"].ShowFormDemageUser);
+routerUser.get(
+  "/formDemageUser",
+  _controllerUser["default"].ShowFormDemageUser
+);
 routerUser.post("/fichaUser", _controllerUser["default"].createUserFicha);
 routerUser.get("/fichaUser", _controllerUser["default"].showFichasUser);
 
 // checkAuth
 // Para validar el token
-routerUser.post("/oauth", _security.checkAuth, _controllerUser["default"].validateToken);
+routerUser.post(
+  "/oauth",
+  _security.checkAuth,
+  _controllerUser["default"].validateToken
+);
 routerUser.post("/oauthOTP", _otp.checkOTP);
-var _default = exports["default"] = routerUser;
+var _default = (exports["default"] = routerUser);
