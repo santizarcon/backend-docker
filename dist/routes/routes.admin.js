@@ -24,7 +24,7 @@ routerAdmin.get("/accounts", _controllerAdmin["default"].showAccounts);
 routerAdmin.put("/accounts", _controllerAdmin["default"].updateResponsible); // PROBARLO
 routerAdmin.post("/accounts", _controllerAdmin["default"].delteAccounts);
 routerAdmin.post("/ficha", _controllerAdmin["default"].createficha);
-routerAdmin.get("/ficha", _security.checkAuth, _controllerAdmin["default"].showFichas);
+routerAdmin.get("/ficha", _controllerAdmin["default"].showFichas);
 routerAdmin["delete"]("/ficha", _controllerAdmin["default"].deleteFicha);
 routerAdmin.put("/ficha", _controllerAdmin["default"].updateFicha);
 var _default = exports["default"] = routerAdmin;
