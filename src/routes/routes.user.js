@@ -13,11 +13,11 @@ routerUser.post("/login", user.login);
 
 routerUser.put("/account", user.updateAccounts);
 routerUser.post("/account", user.createCodeOTP);
-routerUser.delete("/account", user.deleteCodeOTP); // PROBARLO
+routerUser.delete("/account", user.deleteCodeOTP); 
 
 // ONLY USER
 routerUser.post("/user", user.createUser);
-routerUser.delete("/user", user.deleteUser);// PROBARLO
+routerUser.delete("/user", user.deleteUser)
 
 routerUser.post("/shopping", user.createShopping);
 routerUser.post("/reportRequest", user.createReportRequest);
