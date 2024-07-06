@@ -5,9 +5,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-var _security = require("../services/security.js");
-var _controllerTool = _interopRequireDefault(require("../controllers/controller.tool.js"));
 var _express = _interopRequireDefault(require("express"));
+var _controllerTool = _interopRequireDefault(require("../controllers/controller.tool.js"));
+var _security = require("../services/security.js");
 /**
  * Esta es la ruta de las herramientas
  * @type {object}
@@ -19,4 +19,5 @@ routerTool.post("/tool", _security.checkAuth, _controllerTool["default"].createT
 routerTool.put("/tool", _controllerTool["default"].updateTool);
 routerTool["delete"]("/tool", _controllerTool["default"].deleteTool);
 routerTool.get("/tool", _controllerTool["default"].showTool);
+routerTool.post("/cartTool", _controllerTool["default"].createToolCart);
 var _default = exports["default"] = routerTool;
