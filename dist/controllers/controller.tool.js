@@ -208,10 +208,47 @@ var createToolCart = /*#__PURE__*/function () {
     return _ref5.apply(this, arguments);
   };
 }();
+
+/**
+ * Esta funcion sirve mostrar las herramientas del carrito
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+var showToolCart = /*#__PURE__*/function () {
+  var _ref6 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee6(req, res, next) {
+    var data, message;
+    return _regenerator["default"].wrap(function _callee6$(_context6) {
+      while (1) switch (_context6.prev = _context6.next) {
+        case 0:
+          _context6.prev = 0;
+          _context6.next = 3;
+          return _database.pool.query("CALL sp_read_carrito(?)", [req.body.id_user]);
+        case 3:
+          data = _context6.sent;
+          message = data[0][0];
+          _responses["default"].success(req, res, message, 201);
+          _context6.next = 11;
+          break;
+        case 8:
+          _context6.prev = 8;
+          _context6.t0 = _context6["catch"](0);
+          next(_context6.t0);
+        case 11:
+        case "end":
+          return _context6.stop();
+      }
+    }, _callee6, null, [[0, 8]]);
+  }));
+  return function showToolCart(_x16, _x17, _x18) {
+    return _ref6.apply(this, arguments);
+  };
+}();
 var _default = exports["default"] = {
   createTool: createTool,
   updateTool: updateTool,
   deleteTool: deleteTool,
   showTool: showTool,
-  createToolCart: createToolCart
+  createToolCart: createToolCart,
+  showToolCart: showToolCart
 };
