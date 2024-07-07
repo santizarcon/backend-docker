@@ -172,7 +172,12 @@ var sendMail = /*#__PURE__*/function () {
   };
 }();
 
-// Recuperar contraseña PROBARLO
+/**
+ * Esta funcion sirve para ecuperar contraseña
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
 var recoverPassword = /*#__PURE__*/function () {
   var _ref4 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(req, res, next) {
     var data, message, _message4;
