@@ -12,10 +12,10 @@ const routerAdmin = express.Router();
 routerAdmin.post("/admin", admin.createSubAdmin);
 routerAdmin.put("/admin", admin.updateStateReport);// PROBARLO
 
-routerAdmin.post("/adminShow", admin.showInfoAdmin);// PROBARLO
+routerAdmin.post("/adminShow", admin.showInfoAdmin);
 
-routerAdmin.get("/formNew", admin.showFormNew);
-routerAdmin.get("/formDemage", admin.showFormDemage);
+routerAdmin.post("/formNew", admin.showFormNew);
+routerAdmin.post("/formDemage", admin.showFormDemage);
 
 routerAdmin.get("/accounts", admin.showAccounts);
 routerAdmin.put("/accounts", admin.updateResponsible);// PROBARLO

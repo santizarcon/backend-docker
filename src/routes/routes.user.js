@@ -26,10 +26,10 @@ routerUser.post("/shopping", user.createShopping);
 routerUser.post("/reportRequest", user.createReportRequest);
 
 routerUser.post("/formNewUser", user.createFormNew);
-routerUser.get("/formNewUser", user.ShowFormNewUser);
+routerUser.post("/formNewUserShow", user.ShowFormNewUser); // PROBAR
 
 routerUser.post("/formDemageUser", user.createFormDemage);
-routerUser.get("/formDemageUser", user.ShowFormDemageUser);
+routerUser.post("/formDemageUserShow", user.ShowFormDemageUser); // PROBAR
 
 routerUser.post("/fichaUser", user.createUserFicha);
 routerUser.get("/fichaUser", user.showFichasUser);

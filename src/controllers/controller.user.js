@@ -102,7 +102,7 @@ const sendMail = async (req, res, next) => {
 };
 
 /**
- * Esta funcion sirve para ecuperar contraseña
+ * Esta funcion sirve para recuperar contraseña
  * @param {object} req Captura peticiones en HTML
  * @param {object} res Envia peticiones en HTML
  * @param {object} next Sirve para pasar a la siguiente instruccion
