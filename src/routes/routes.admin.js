@@ -10,8 +10,9 @@ const routerAdmin = express.Router();
 
 // RUTAS
 routerAdmin.post("/admin", admin.createSubAdmin);
-routerAdmin.get("/admin", admin.showInfoAdmin);// PROBARLO
 routerAdmin.put("/admin", admin.updateStateReport);// PROBARLO
+
+routerAdmin.post("/adminShow", admin.showInfoAdmin);// PROBARLO
 
 routerAdmin.get("/formNew", admin.showFormNew);
 routerAdmin.get("/formDemage", admin.showFormDemage);
