@@ -28,9 +28,11 @@ routerUser.post("/userShow", _controllerUser["default"].showInfoUser);
 routerUser.post("/shopping", _controllerUser["default"].createShopping);
 routerUser.post("/reportRequest", _controllerUser["default"].createReportRequest);
 routerUser.post("/formNewUser", _controllerUser["default"].createFormNew);
-routerUser.get("/formNewUser", _controllerUser["default"].ShowFormNewUser);
+routerUser.post("/formNewUserShow", _controllerUser["default"].ShowFormNewUser); // PROBAR
+
 routerUser.post("/formDemageUser", _controllerUser["default"].createFormDemage);
-routerUser.get("/formDemageUser", _controllerUser["default"].ShowFormDemageUser);
+routerUser.post("/formDemageUserShow", _controllerUser["default"].ShowFormDemageUser); // PROBAR
+
 routerUser.post("/fichaUser", _controllerUser["default"].createUserFicha);
 routerUser.get("/fichaUser", _controllerUser["default"].showFichasUser);
 

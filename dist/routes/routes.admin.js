@@ -18,10 +18,11 @@ var routerAdmin = _express["default"].Router();
 routerAdmin.post("/admin", _controllerAdmin["default"].createSubAdmin);
 routerAdmin.put("/admin", _controllerAdmin["default"].updateStateReport); // PROBARLO
 
-routerAdmin.post("/adminShow", _controllerAdmin["default"].showInfoAdmin); // PROBARLO
-
+routerAdmin.post("/adminShow", _controllerAdmin["default"].showInfoAdmin);
 routerAdmin.get("/formNew", _controllerAdmin["default"].showFormNew);
 routerAdmin.get("/formDemage", _controllerAdmin["default"].showFormDemage);
+routerAdmin.get("/showForms", _controllerAdmin["default"].showForms); // ??
+
 routerAdmin.get("/accounts", _controllerAdmin["default"].showAccounts);
 routerAdmin.put("/accounts", _controllerAdmin["default"].updateResponsible); // PROBARLO
 routerAdmin.post("/accounts", _controllerAdmin["default"].delteAccounts);
