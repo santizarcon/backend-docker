@@ -140,6 +140,25 @@ const showFormDemage = async(req, res, next) =>{
 };
 
 /**
+ * Esta funcion sirve para mostrar todos los formularios de nueva y daño herramienta
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const showForms = async(req, res, next) =>{
+  try {
+    const damageTool = await pool.query(`CALL sp_read_formulario_daño_herramienta()`);
+    const newTool = await pool.query(`CALL sp_read_formulario_nueva_herramienta()`);
+
+    let message = [damageTool[0][0], newTool[0][0]];
+    response.success(req, res, message, 201);
+
+  } catch (err) {
+    next(err);
+  };
+};
+
+/**
  * Esta funcion sirve para mostrar todas cuentas 
  * @param {object} req Captura peticiones en HTML
  * @param {object} res Envia peticiones en HTML
@@ -297,6 +316,7 @@ export default {
   updateStateReport,
   showFormNew,
   showFormDemage,
+  showForms,
   showAccounts,
   updateResponsible,
   delteAccounts,

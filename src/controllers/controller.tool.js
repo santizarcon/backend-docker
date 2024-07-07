@@ -132,10 +132,29 @@ const createToolCart = async (req, res, next) => {
   }
 };
 
+/**
+ * Esta funcion sirve mostrar las herramientas del carrito
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const showToolCart = async (req, res, next) => {
+  try {
+    const data = await pool.query(`CALL sp_read_carrito(?)`, [
+      req.body.id_user,
+    ]);
+    let message = data[0][0];
+    response.success(req, res, message, 201);
+  } catch (err) {
+    next(err);
+  }
+};
+
 export default {
   createTool,
   updateTool,
   deleteTool,
   showTool,
   createToolCart,
+  showToolCart,
 };

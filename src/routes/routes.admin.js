@@ -14,8 +14,10 @@ routerAdmin.put("/admin", admin.updateStateReport);// PROBARLO
 
 routerAdmin.post("/adminShow", admin.showInfoAdmin);
 
-routerAdmin.post("/formNew", admin.showFormNew);
-routerAdmin.post("/formDemage", admin.showFormDemage);
+routerAdmin.get("/formNew", admin.showFormNew);
+routerAdmin.get("/formDemage", admin.showFormDemage);
+routerAdmin.get("/showForms", admin.showForms); // ??
+
 
 routerAdmin.get("/accounts", admin.showAccounts);
 routerAdmin.put("/accounts", admin.updateResponsible);// PROBARLO
