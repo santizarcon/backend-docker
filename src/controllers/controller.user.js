@@ -319,7 +319,7 @@ const createFormDemage = async (req, res, next) => {
 const ShowFormDemageUser = async (req, res, next) => {
   try {
     const data = await pool.query(
-      `CALL sp_read_formulario_dano_herramienta_user(?);`,
+      `CALL sp_read_formulario_daño_herramienta_user(?);`,
       [req.body.id_user]
     );
 
