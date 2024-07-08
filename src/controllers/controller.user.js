@@ -186,7 +186,6 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
-
 /**
  * Esta funcion sirve para mostrara los datos dependiendo del el id USER
  * @param {object} req Captura peticiones en HTML
@@ -194,41 +193,11 @@ const deleteUser = async (req, res, next) => {
  * @param {object} next Sirve para pasar a la siguiente instruccion
  */
 const showInfoUser = async (req, res, next) => {
-
   try {
-    const data = await pool.query(`call sp_read_user(?);`, [
-      req.body.id,
-    ]);
+    const data = await pool.query(`call sp_read_user(?);`, [req.body.id]);
 
     let message = data[0][0];
     response.success(req, res, message, 201);
-
-  } catch (err) {
-    next(err);
-  };
-
-};
-
-/**
- * Esta funcion sirve para crear el carrito de herramientas a pedir
- * @param {object} req Captura peticiones en HTML
- * @param {object} res Envia peticiones en HTML
- * @param {object} next Sirve para pasar a la siguiente instruccion
- */
-const createShopping = async (req, res, next) => {
-  try {
-    const data = await pool.query(
-      `CALL sp_create_carrito_herramienta(?, ?, ?);`,
-      [req.body.cantidad_herramienta, req.body.id_herramienta, req.body.id_user]
-    );
-
-    if (data[0].affectedRows >= 1) {
-      let message = "Item create successful (shopping cart)";
-      response.success(req, res, message, 201);
-    } else {
-      let message = "Could't add Shopping Cart";
-      response.error(req, res, message, 400);
-    }
   } catch (err) {
     next(err);
   }
@@ -242,10 +211,10 @@ const createShopping = async (req, res, next) => {
  */
 const createReportRequest = async (req, res, next) => {
   try {
-    const data = await pool.query(`CALL sp_create_informe_solicitud(?, ?);`, [
-      req.body._numero_ficha,
-      req.body.id_user,
-    ]);
+    const data = await pool.query(
+      `CALL sp_create_informe_solicitud(?, ?, ?);`,
+      [req.body.numero_ficha, req.body.fecha, req.body.id_user]
+    );
 
     if (data[0].affectedRows >= 1) {
       let message = "Item create successful (Report Request)";
@@ -417,7 +386,6 @@ export default {
   createUser,
   deleteUser,
   showInfoUser,
-  createShopping,
   createReportRequest,
   createFormNew,
   ShowFormNewUser,
