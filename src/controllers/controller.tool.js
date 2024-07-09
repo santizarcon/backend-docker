@@ -150,6 +150,23 @@ const showToolCart = async (req, res, next) => {
   }
 };
 
+const deleteToolCart = async (req, res, next) => {
+  try {
+    const data = await pool.query(`CALL sp_delete_carrito_herramienta(?)`, [
+      req.body.id_carrito_herramienta,
+    ]);
+    if (data[0].affectedRows >= 1) {
+      let message = "Item delete successful (cart tool)";
+      response.success(req, res, message, 200);
+    } else {
+      let message = "Could't delete cart tool";
+      response.error(req, res, message, 500);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 export default {
   createTool,
   updateTool,
@@ -157,4 +174,5 @@ export default {
   showTool,
   createToolCart,
   showToolCart,
+  deleteToolCart,
 };
