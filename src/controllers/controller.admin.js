@@ -61,7 +61,7 @@ const showInfoAdmin = async (req, res, next) => {
 };
 
 
-// Actualizar el estado del Informe de solicitud PROBARLO
+// Actualizar el estado del Informe de solicitud PROBARLO ESTADO_SOLICITUD
 const updateStateReport = async(req, res, next) =>{
   try {
     const data = await pool.query(`CALL sp_update_informe_solicitud(?, ?)`, [
@@ -157,6 +157,26 @@ const showForms = async(req, res, next) =>{
     next(err);
   };
 };
+
+
+/**
+ * Esta funcion sirve para mostrar el usuario que tiene las herramientas prestadas
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const showBorrowTool = async(req, res, next) =>{
+  try {
+    const data = await pool.query(`CALL sp_read_herramientas_prestadas()`);
+
+    let message = data[0][0];
+    response.success(req, res, message, 201);
+
+  } catch (err) {
+    next(err);
+  };
+};
+
 
 /**
  * Esta funcion sirve para mostrar todas cuentas 
@@ -317,6 +337,7 @@ export default {
   showFormNew,
   showFormDemage,
   showForms,
+  showBorrowTool,
   showAccounts,
   updateResponsible,
   delteAccounts,

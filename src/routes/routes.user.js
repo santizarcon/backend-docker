@@ -26,10 +26,10 @@ routerUser.post("/userShow", user.showInfoUser);
 routerUser.post("/reportRequest", user.createReportRequest);
 
 routerUser.post("/formNewUser", user.createFormNew);
-routerUser.post("/formNewUserShow", user.ShowFormNewUser); // PROBAR
+routerUser.post("/formNewUserShow", user.ShowFormNewUser);
 
 routerUser.post("/formDemageUser", user.createFormDemage);
-routerUser.post("/formDemageUserShow", user.ShowFormDemageUser); // PROBAR
+routerUser.post("/formDemageUserShow", user.ShowFormDemageUser); 
 
 routerUser.post("/fichaUser", user.createUserFicha);
 routerUser.get("/fichaUser", user.showFichasUser);

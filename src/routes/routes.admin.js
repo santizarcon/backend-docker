@@ -17,6 +17,7 @@ routerAdmin.post("/adminShow", admin.showInfoAdmin);
 routerAdmin.get("/formNew", admin.showFormNew);
 routerAdmin.get("/formDemage", admin.showFormDemage);
 routerAdmin.get("/showForms", admin.showForms); // ??
+routerAdmin.get("/showBorrowTool", admin.showBorrowTool); // ??
 
 
 routerAdmin.get("/accounts", admin.showAccounts);
