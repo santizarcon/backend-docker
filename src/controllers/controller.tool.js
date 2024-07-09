@@ -150,6 +150,12 @@ const showToolCart = async (req, res, next) => {
   }
 };
 
+/**
+ * Esta funcion sirve eliminar las herramientas del carrito
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
 const deleteToolCart = async (req, res, next) => {
   try {
     const data = await pool.query(`CALL sp_delete_carrito_herramienta(?)`, [

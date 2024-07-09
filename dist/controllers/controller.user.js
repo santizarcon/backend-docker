@@ -331,8 +331,6 @@ var showInfoUser = /*#__PURE__*/function () {
           _context7.t0 = _context7["catch"](0);
           next(_context7.t0);
         case 11:
-          ;
-        case 12:
         case "end":
           return _context7.stop();
       }
@@ -344,12 +342,12 @@ var showInfoUser = /*#__PURE__*/function () {
 }();
 
 /**
- * Esta funcion sirve para crear el carrito de herramientas a pedir
+ * Esta funcion sirve para crear los informes de solicitud de herramientas
  * @param {object} req Captura peticiones en HTML
  * @param {object} res Envia peticiones en HTML
  * @param {object} next Sirve para pasar a la siguiente instruccion
  */
-var createShopping = /*#__PURE__*/function () {
+var createReportRequest = /*#__PURE__*/function () {
   var _ref8 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee8(req, res, next) {
     var data, message, _message7;
     return _regenerator["default"].wrap(function _callee8$(_context8) {
@@ -357,14 +355,14 @@ var createShopping = /*#__PURE__*/function () {
         case 0:
           _context8.prev = 0;
           _context8.next = 3;
-          return _database.pool.query("CALL sp_create_carrito_herramienta(?, ?, ?);", [req.body.cantidad_herramienta, req.body.id_herramienta, req.body.id_user]);
+          return _database.pool.query("CALL sp_create_informe_solicitud(?, ?, ?);", [req.body.numero_ficha, req.body.fecha, req.body.id_user]);
         case 3:
           data = _context8.sent;
           if (data[0].affectedRows >= 1) {
-            message = "Item create successful (shopping cart)";
+            message = "Item create successful (Report Request)";
             _responses["default"].success(req, res, message, 201);
           } else {
-            _message7 = "Could't add Shopping Cart";
+            _message7 = "Could't add Report Request";
             _responses["default"].error(req, res, _message7, 400);
           }
           _context8.next = 10;
@@ -379,18 +377,18 @@ var createShopping = /*#__PURE__*/function () {
       }
     }, _callee8, null, [[0, 7]]);
   }));
-  return function createShopping(_x22, _x23, _x24) {
+  return function createReportRequest(_x22, _x23, _x24) {
     return _ref8.apply(this, arguments);
   };
 }();
 
 /**
- * Esta funcion sirve para crear los informes de solicitud de herramientas
+ * Esta funcion sirve para crear formularios para pedir una nueva herramienta
  * @param {object} req Captura peticiones en HTML
  * @param {object} res Envia peticiones en HTML
  * @param {object} next Sirve para pasar a la siguiente instruccion
  */
-var createReportRequest = /*#__PURE__*/function () {
+var createFormNew = /*#__PURE__*/function () {
   var _ref9 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee9(req, res, next) {
     var data, message, _message8;
     return _regenerator["default"].wrap(function _callee9$(_context9) {
@@ -398,14 +396,14 @@ var createReportRequest = /*#__PURE__*/function () {
         case 0:
           _context9.prev = 0;
           _context9.next = 3;
-          return _database.pool.query("CALL sp_create_informe_solicitud(?, ?);", [req.body._numero_ficha, req.body.id_user]);
+          return _database.pool.query("call sp_create_formulario_nueva_herramienta(?, ?, ?, ?);", [req.body.asunto, req.body.cantidad, req.body.descripcion, req.body.id_user]);
         case 3:
           data = _context9.sent;
           if (data[0].affectedRows >= 1) {
-            message = "Item create successful (Report Request)";
+            message = "Item create successful (Form New Tool)";
             _responses["default"].success(req, res, message, 201);
           } else {
-            _message8 = "Could't add Report Request";
+            _message8 = "Could't add Form New Tool";
             _responses["default"].error(req, res, _message8, 400);
           }
           _context9.next = 10;
@@ -420,49 +418,8 @@ var createReportRequest = /*#__PURE__*/function () {
       }
     }, _callee9, null, [[0, 7]]);
   }));
-  return function createReportRequest(_x25, _x26, _x27) {
+  return function createFormNew(_x25, _x26, _x27) {
     return _ref9.apply(this, arguments);
-  };
-}();
-
-/**
- * Esta funcion sirve para crear formularios para pedir una nueva herramienta
- * @param {object} req Captura peticiones en HTML
- * @param {object} res Envia peticiones en HTML
- * @param {object} next Sirve para pasar a la siguiente instruccion
- */
-var createFormNew = /*#__PURE__*/function () {
-  var _ref10 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee10(req, res, next) {
-    var data, message, _message9;
-    return _regenerator["default"].wrap(function _callee10$(_context10) {
-      while (1) switch (_context10.prev = _context10.next) {
-        case 0:
-          _context10.prev = 0;
-          _context10.next = 3;
-          return _database.pool.query("call sp_create_formulario_nueva_herramienta(?, ?, ?, ?);", [req.body.asunto, req.body.cantidad, req.body.descripcion, req.body.id_user]);
-        case 3:
-          data = _context10.sent;
-          if (data[0].affectedRows >= 1) {
-            message = "Item create successful (Form New Tool)";
-            _responses["default"].success(req, res, message, 201);
-          } else {
-            _message9 = "Could't add Form New Tool";
-            _responses["default"].error(req, res, _message9, 400);
-          }
-          _context10.next = 10;
-          break;
-        case 7:
-          _context10.prev = 7;
-          _context10.t0 = _context10["catch"](0);
-          next(_context10.t0);
-        case 10:
-        case "end":
-          return _context10.stop();
-      }
-    }, _callee10, null, [[0, 7]]);
-  }));
-  return function createFormNew(_x28, _x29, _x30) {
-    return _ref10.apply(this, arguments);
   };
 }();
 
@@ -473,32 +430,32 @@ var createFormNew = /*#__PURE__*/function () {
  * @param {object} next Sirve para pasar a la siguiente instruccion
  */
 var ShowFormNewUser = /*#__PURE__*/function () {
-  var _ref11 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee11(req, res, next) {
+  var _ref10 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee10(req, res, next) {
     var data, message;
-    return _regenerator["default"].wrap(function _callee11$(_context11) {
-      while (1) switch (_context11.prev = _context11.next) {
+    return _regenerator["default"].wrap(function _callee10$(_context10) {
+      while (1) switch (_context10.prev = _context10.next) {
         case 0:
-          _context11.prev = 0;
-          _context11.next = 3;
+          _context10.prev = 0;
+          _context10.next = 3;
           return _database.pool.query("CALL sp_read_formulario_nueva_herramienta_user(?);", [req.body.id_user]);
         case 3:
-          data = _context11.sent;
+          data = _context10.sent;
           message = data[0][0];
           _responses["default"].success(req, res, message, 201);
-          _context11.next = 11;
+          _context10.next = 11;
           break;
         case 8:
-          _context11.prev = 8;
-          _context11.t0 = _context11["catch"](0);
-          next(_context11.t0);
+          _context10.prev = 8;
+          _context10.t0 = _context10["catch"](0);
+          next(_context10.t0);
         case 11:
         case "end":
-          return _context11.stop();
+          return _context10.stop();
       }
-    }, _callee11, null, [[0, 8]]);
+    }, _callee10, null, [[0, 8]]);
   }));
-  return function ShowFormNewUser(_x31, _x32, _x33) {
-    return _ref11.apply(this, arguments);
+  return function ShowFormNewUser(_x28, _x29, _x30) {
+    return _ref10.apply(this, arguments);
   };
 }();
 
@@ -509,37 +466,37 @@ var ShowFormNewUser = /*#__PURE__*/function () {
  * @param {object} next Sirve para pasar a la siguiente instruccion
  */
 var createFormDemage = /*#__PURE__*/function () {
-  var _ref12 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee12(req, res, next) {
-    var data, message, _message10;
-    return _regenerator["default"].wrap(function _callee12$(_context12) {
-      while (1) switch (_context12.prev = _context12.next) {
+  var _ref11 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee11(req, res, next) {
+    var data, message, _message9;
+    return _regenerator["default"].wrap(function _callee11$(_context11) {
+      while (1) switch (_context11.prev = _context11.next) {
         case 0:
-          _context12.prev = 0;
-          _context12.next = 3;
+          _context11.prev = 0;
+          _context11.next = 3;
           return _database.pool.query("call sp_create_formulario_dano_herramienta(?, ?, ?, ?, ?, ?);", [req.body.asunto, req.body.cantidad, req.body.imagen, req.body.descripcion, req.body.id_user, req.body.id_herramienta]);
         case 3:
-          data = _context12.sent;
+          data = _context11.sent;
           if (data[0].affectedRows >= 1) {
             message = "Item create successful (Form Demage Tool)";
             _responses["default"].success(req, res, message, 201);
           } else {
-            _message10 = "Could't add Form Demage Tool";
-            _responses["default"].error(req, res, _message10, 400);
+            _message9 = "Could't add Form Demage Tool";
+            _responses["default"].error(req, res, _message9, 400);
           }
-          _context12.next = 10;
+          _context11.next = 10;
           break;
         case 7:
-          _context12.prev = 7;
-          _context12.t0 = _context12["catch"](0);
-          next(_context12.t0);
+          _context11.prev = 7;
+          _context11.t0 = _context11["catch"](0);
+          next(_context11.t0);
         case 10:
         case "end":
-          return _context12.stop();
+          return _context11.stop();
       }
-    }, _callee12, null, [[0, 7]]);
+    }, _callee11, null, [[0, 7]]);
   }));
-  return function createFormDemage(_x34, _x35, _x36) {
-    return _ref12.apply(this, arguments);
+  return function createFormDemage(_x31, _x32, _x33) {
+    return _ref11.apply(this, arguments);
   };
 }();
 
@@ -550,6 +507,42 @@ var createFormDemage = /*#__PURE__*/function () {
  * @param {object} next Sirve para pasar a la siguiente instruccion
  */
 var ShowFormDemageUser = /*#__PURE__*/function () {
+  var _ref12 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee12(req, res, next) {
+    var data, message;
+    return _regenerator["default"].wrap(function _callee12$(_context12) {
+      while (1) switch (_context12.prev = _context12.next) {
+        case 0:
+          _context12.prev = 0;
+          _context12.next = 3;
+          return _database.pool.query("CALL sp_read_formulario_da\xF1o_herramienta_user(?);", [req.body.id_user]);
+        case 3:
+          data = _context12.sent;
+          message = data[0][0];
+          _responses["default"].success(req, res, message, 201);
+          _context12.next = 11;
+          break;
+        case 8:
+          _context12.prev = 8;
+          _context12.t0 = _context12["catch"](0);
+          next(_context12.t0);
+        case 11:
+        case "end":
+          return _context12.stop();
+      }
+    }, _callee12, null, [[0, 8]]);
+  }));
+  return function ShowFormDemageUser(_x34, _x35, _x36) {
+    return _ref12.apply(this, arguments);
+  };
+}();
+
+/**
+ * Esta funcion sirve para enlazar las fichas correspondientes a cada usuario
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+var createUserFicha = /*#__PURE__*/function () {
   var _ref13 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee13(req, res, next) {
     var data, message;
     return _regenerator["default"].wrap(function _callee13$(_context13) {
@@ -557,10 +550,10 @@ var ShowFormDemageUser = /*#__PURE__*/function () {
         case 0:
           _context13.prev = 0;
           _context13.next = 3;
-          return _database.pool.query("CALL sp_read_formulario_dano_herramienta_user(?);", [req.body.id_user]);
+          return _database.pool.query("CALL sp_create_user_ficha(?, ?)", [req.body.id_user, req.body.numero_ficha]);
         case 3:
           data = _context13.sent;
-          message = data[0][0];
+          message = "Item created successful (User-Ficha)";
           _responses["default"].success(req, res, message, 201);
           _context13.next = 11;
           break;
@@ -574,18 +567,18 @@ var ShowFormDemageUser = /*#__PURE__*/function () {
       }
     }, _callee13, null, [[0, 8]]);
   }));
-  return function ShowFormDemageUser(_x37, _x38, _x39) {
+  return function createUserFicha(_x37, _x38, _x39) {
     return _ref13.apply(this, arguments);
   };
 }();
 
 /**
- * Esta funcion sirve para enlazar las fichas correspondientes a cada usuario
+ * Esta funcion sirve para mostrar las fichas que tiene cada usuario
  * @param {object} req Captura peticiones en HTML
  * @param {object} res Envia peticiones en HTML
  * @param {object} next Sirve para pasar a la siguiente instruccion
  */
-var createUserFicha = /*#__PURE__*/function () {
+var showFichasUser = /*#__PURE__*/function () {
   var _ref14 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee14(req, res, next) {
     var data, message;
     return _regenerator["default"].wrap(function _callee14$(_context14) {
@@ -593,10 +586,10 @@ var createUserFicha = /*#__PURE__*/function () {
         case 0:
           _context14.prev = 0;
           _context14.next = 3;
-          return _database.pool.query("CALL sp_create_user_ficha(?, ?)", [req.body.id_user, req.body.numero_ficha]);
+          return _database.pool.query("CALL sp_read_user_ficha(?)", [req.body.id_user]);
         case 3:
           data = _context14.sent;
-          message = "Item created successful (User-Ficha)";
+          message = data[0][0];
           _responses["default"].success(req, res, message, 201);
           _context14.next = 11;
           break;
@@ -610,44 +603,8 @@ var createUserFicha = /*#__PURE__*/function () {
       }
     }, _callee14, null, [[0, 8]]);
   }));
-  return function createUserFicha(_x40, _x41, _x42) {
+  return function showFichasUser(_x40, _x41, _x42) {
     return _ref14.apply(this, arguments);
-  };
-}();
-
-/**
- * Esta funcion sirve para mostrar las fichas que tiene cada usuario
- * @param {object} req Captura peticiones en HTML
- * @param {object} res Envia peticiones en HTML
- * @param {object} next Sirve para pasar a la siguiente instruccion
- */
-var showFichasUser = /*#__PURE__*/function () {
-  var _ref15 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee15(req, res, next) {
-    var data, message;
-    return _regenerator["default"].wrap(function _callee15$(_context15) {
-      while (1) switch (_context15.prev = _context15.next) {
-        case 0:
-          _context15.prev = 0;
-          _context15.next = 3;
-          return _database.pool.query("CALL sp_read_user_ficha(?)", [req.body.id_user]);
-        case 3:
-          data = _context15.sent;
-          message = data[0][0];
-          _responses["default"].success(req, res, message, 201);
-          _context15.next = 11;
-          break;
-        case 8:
-          _context15.prev = 8;
-          _context15.t0 = _context15["catch"](0);
-          next(_context15.t0);
-        case 11:
-        case "end":
-          return _context15.stop();
-      }
-    }, _callee15, null, [[0, 8]]);
-  }));
-  return function showFichasUser(_x43, _x44, _x45) {
-    return _ref15.apply(this, arguments);
   };
 }();
 
@@ -669,7 +626,6 @@ var _default = exports["default"] = {
   createUser: createUser,
   deleteUser: deleteUser,
   showInfoUser: showInfoUser,
-  createShopping: createShopping,
   createReportRequest: createReportRequest,
   createFormNew: createFormNew,
   ShowFormNewUser: ShowFormNewUser,
