@@ -27,11 +27,9 @@ routerUser["delete"]("/user", _controllerUser["default"].deleteUser);
 routerUser.post("/userShow", _controllerUser["default"].showInfoUser);
 routerUser.post("/reportRequest", _controllerUser["default"].createReportRequest);
 routerUser.post("/formNewUser", _controllerUser["default"].createFormNew);
-routerUser.post("/formNewUserShow", _controllerUser["default"].ShowFormNewUser); // PROBAR
-
+routerUser.post("/formNewUserShow", _controllerUser["default"].ShowFormNewUser);
 routerUser.post("/formDemageUser", _controllerUser["default"].createFormDemage);
-routerUser.post("/formDemageUserShow", _controllerUser["default"].ShowFormDemageUser); // PROBAR
-
+routerUser.post("/formDemageUserShow", _controllerUser["default"].ShowFormDemageUser);
 routerUser.post("/fichaUser", _controllerUser["default"].createUserFicha);
 routerUser.get("/fichaUser", _controllerUser["default"].showFichasUser);
 

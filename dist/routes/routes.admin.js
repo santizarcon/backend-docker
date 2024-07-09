@@ -22,6 +22,7 @@ routerAdmin.post("/adminShow", _controllerAdmin["default"].showInfoAdmin);
 routerAdmin.get("/formNew", _controllerAdmin["default"].showFormNew);
 routerAdmin.get("/formDemage", _controllerAdmin["default"].showFormDemage);
 routerAdmin.get("/showForms", _controllerAdmin["default"].showForms); // ??
+routerAdmin.get("/showBorrowTool", _controllerAdmin["default"].showBorrowTool); // ??
 
 routerAdmin.get("/accounts", _controllerAdmin["default"].showAccounts);
 routerAdmin.put("/accounts", _controllerAdmin["default"].updateResponsible); // PROBARLO
