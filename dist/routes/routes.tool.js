@@ -21,4 +21,5 @@ routerTool["delete"]("/tool", _controllerTool["default"].deleteTool);
 routerTool.get("/tool", _controllerTool["default"].showTool);
 routerTool.post("/cartTool", _controllerTool["default"].createToolCart);
 routerTool.post("/showCartTool", _controllerTool["default"].showToolCart);
+routerTool["delete"]("/cartTool", _controllerTool["default"].deleteToolCart);
 var _default = exports["default"] = routerTool;

@@ -15,5 +15,6 @@ routerTool.delete("/tool", tool.deleteTool);
 routerTool.get("/tool", tool.showTool);
 routerTool.post("/cartTool", tool.createToolCart);
 routerTool.post("/showCartTool", tool.showToolCart);
+routerTool.delete("/cartTool", tool.deleteToolCart);
 
 export default routerTool;

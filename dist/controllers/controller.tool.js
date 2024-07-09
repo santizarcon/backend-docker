@@ -244,11 +244,53 @@ var showToolCart = /*#__PURE__*/function () {
     return _ref6.apply(this, arguments);
   };
 }();
+
+/**
+ * Esta funcion sirve eliminar las herramientas del carrito
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+var deleteToolCart = /*#__PURE__*/function () {
+  var _ref7 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee7(req, res, next) {
+    var data, message, _message4;
+    return _regenerator["default"].wrap(function _callee7$(_context7) {
+      while (1) switch (_context7.prev = _context7.next) {
+        case 0:
+          _context7.prev = 0;
+          _context7.next = 3;
+          return _database.pool.query("CALL sp_delete_carrito_herramienta(?)", [req.body.id_carrito_herramienta]);
+        case 3:
+          data = _context7.sent;
+          if (data[0].affectedRows >= 1) {
+            message = "Item delete successful (cart tool)";
+            _responses["default"].success(req, res, message, 200);
+          } else {
+            _message4 = "Could't delete cart tool";
+            _responses["default"].error(req, res, _message4, 500);
+          }
+          _context7.next = 10;
+          break;
+        case 7:
+          _context7.prev = 7;
+          _context7.t0 = _context7["catch"](0);
+          next(_context7.t0);
+        case 10:
+        case "end":
+          return _context7.stop();
+      }
+    }, _callee7, null, [[0, 7]]);
+  }));
+  return function deleteToolCart(_x19, _x20, _x21) {
+    return _ref7.apply(this, arguments);
+  };
+}();
 var _default = exports["default"] = {
   createTool: createTool,
   updateTool: updateTool,
   deleteTool: deleteTool,
   showTool: showTool,
   createToolCart: createToolCart,
-  showToolCart: showToolCart
+  showToolCart: showToolCart,
+  deleteToolCart: deleteToolCart
 };
