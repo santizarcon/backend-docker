@@ -38,6 +38,45 @@ const createSubAdmin = async (req, res, next) => {
 
 };
 
+// Actualizar el estado del Informe de solicitud PROBARLO ESTADO_SOLICITUD
+const updateStateReport = async(req, res, next) =>{
+  try {
+    const data = await pool.query(`CALL sp_update_informe_solicitud(?, ?)`, [
+      req.body.id,
+      req.body.estado,
+    ]);
+
+    if (data[0].affectedRows >= 1) {
+      let message = "Item updated successful (Request Report)";
+      response.success(req, res, message, 201);
+    } else {
+      let message = "Could't updated the Request Report";
+      response.error(req, res, message, 400);
+    };
+
+  } catch (err) {
+    next(err);
+  };
+};
+
+/**
+ * Esta funcion sirve para mostrar la informacion de peticion de las herramientas
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const showInfoReport = async(req, res, next) =>{
+  try {
+    const data = await pool.query(`CALL sp_read_informe_solicitud_admin()`);
+
+    let message = data[0][0];
+    response.success(req, res, message, 201);
+
+  } catch (err) {
+    next(err);
+  };
+};
+
 /**
  * Esta funcion sirve para mostrara los datos dependiendo del el id ADMIN
  * @param {object} req Captura peticiones en HTML
@@ -61,47 +100,6 @@ const showInfoAdmin = async (req, res, next) => {
 };
 
 
-// Actualizar el estado del Informe de solicitud PROBARLO ESTADO_SOLICITUD
-const updateStateReport = async(req, res, next) =>{
-  try {
-    const data = await pool.query(`CALL sp_update_informe_solicitud(?, ?)`, [
-      req.body.id,
-      req.body.estado,
-    ]);
-
-    if (data[0].affectedRows >= 1) {
-      let message = "Item updated successful (Request Report)";
-      response.success(req, res, message, 201);
-    } else {
-      let message = "Could't updated the Request Report";
-      response.error(req, res, message, 400);
-    };
-
-  } catch (err) {
-    next(err);
-  };
-};
-
-// Actualizar los Responsable de la Herramientas PROBARLO
-const updateResponsible = async(req, res, next) =>{
-  try {
-    const data = await pool.query(`CALL sp_update_responsabilidad_herramienta(?, ?)`, [
-      req.body.id,
-      req.body.id_user,
-    ]);
-
-    if (data[0].affectedRows >= 1) {
-      let message = "Item updated successful (Tool Manager)";
-      response.success(req, res, message, 201);
-    } else {
-      let message = "Could't updated the Tool Manager";
-      response.error(req, res, message, 400);
-    };
-
-  } catch (err) {
-    next(err);
-  };
-};
 
 /**
  * Esta funcion sirve para mostrar los formularios de peticion para una nueva herramienta
@@ -132,25 +130,6 @@ const showFormDemage = async(req, res, next) =>{
     const data = await pool.query(`CALL sp_read_formulario_daño_herramienta()`);
 
     let message = data[0][0];
-    response.success(req, res, message, 201);
-
-  } catch (err) {
-    next(err);
-  };
-};
-
-/**
- * Esta funcion sirve para mostrar todos los formularios de nueva y daño herramienta
- * @param {object} req Captura peticiones en HTML
- * @param {object} res Envia peticiones en HTML
- * @param {object} next Sirve para pasar a la siguiente instruccion
- */
-const showForms = async(req, res, next) =>{
-  try {
-    const damageTool = await pool.query(`CALL sp_read_formulario_daño_herramienta()`);
-    const newTool = await pool.query(`CALL sp_read_formulario_nueva_herramienta()`);
-
-    let message = [damageTool[0][0], newTool[0][0]];
     response.success(req, res, message, 201);
 
   } catch (err) {
@@ -332,14 +311,13 @@ const showFichas = async (req, res, next) => {
 
 export default {
   createSubAdmin,
-  showInfoAdmin,
   updateStateReport,
+  showInfoReport,
+  showInfoAdmin,
   showFormNew,
   showFormDemage,
-  showForms,
   showBorrowTool,
   showAccounts,
-  updateResponsible,
   delteAccounts,
   createficha,
   deleteFicha,

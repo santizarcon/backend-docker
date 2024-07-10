@@ -11,17 +11,15 @@ const routerAdmin = express.Router();
 // RUTAS
 routerAdmin.post("/admin", admin.createSubAdmin);
 routerAdmin.put("/admin", admin.updateStateReport);// PROBARLO
+routerAdmin.get("/admin", admin.showInfoReport);// PROBARLO
 
 routerAdmin.post("/adminShow", admin.showInfoAdmin);
 
 routerAdmin.get("/formNew", admin.showFormNew);
 routerAdmin.get("/formDemage", admin.showFormDemage);
-routerAdmin.get("/showForms", admin.showForms); // ??
-routerAdmin.get("/showBorrowTool", admin.showBorrowTool); // ??
-
+routerAdmin.get("/showBorrowTool", admin.showBorrowTool);
 
 routerAdmin.get("/accounts", admin.showAccounts);
-routerAdmin.put("/accounts", admin.updateResponsible);// PROBARLO
 routerAdmin.post("/accounts", admin.delteAccounts);
 
 routerAdmin.post("/ficha", admin.createficha);

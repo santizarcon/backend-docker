@@ -21,6 +21,7 @@ routerUser.put("/recoverPassword", user.recoverPassword);
 routerUser.post("/user", user.createUser);
 
 routerUser.delete("/user", user.deleteUser);
+routerUser.post("/userReport", user.showInfoReport);
 routerUser.post("/userShow", user.showInfoUser);
 
 routerUser.post("/reportRequest", user.createReportRequest);

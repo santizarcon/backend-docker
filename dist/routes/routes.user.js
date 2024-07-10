@@ -24,6 +24,7 @@ routerUser.put("/recoverPassword", _controllerUser["default"].recoverPassword);
 // ONLY USER
 routerUser.post("/user", _controllerUser["default"].createUser);
 routerUser["delete"]("/user", _controllerUser["default"].deleteUser);
+routerUser.post("/userReport", _controllerUser["default"].showInfoReport);
 routerUser.post("/userShow", _controllerUser["default"].showInfoUser);
 routerUser.post("/reportRequest", _controllerUser["default"].createReportRequest);
 routerUser.post("/formNewUser", _controllerUser["default"].createFormNew);

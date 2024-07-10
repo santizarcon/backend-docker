@@ -77,6 +77,23 @@ const updateAccounts = async (req, res, next) => {
 };
 
 /**
+ * Esta funcion sirve para mostrar la informacion de peticion de las herramientas para USER
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const showInfoReport = async(req, res, next) =>{
+  try {
+    const data = await pool.query(`call sp_read_informe_solicitud_user(?);`, [req.body.id]);
+
+    let message = data[0][0];
+    response.success(req, res, message, 201);
+  } catch (err) {
+    next(err);
+  }
+};
+
+/**
  * Esta funcion sirve para crear y enviar el codigo OTP, para recuperar la
  * contraseña
  * @param {object} req Captura peticiones en HTML
@@ -381,6 +398,7 @@ const validateToken = (req, res) => {
 export default {
   login,
   updateAccounts,
+  showInfoReport,
   sendMail,
   recoverPassword,
   createUser,
