@@ -259,7 +259,7 @@ var deleteToolCart = /*#__PURE__*/function () {
         case 0:
           _context7.prev = 0;
           _context7.next = 3;
-          return _database.pool.query("CALL sp_delete_carrito_herramienta(?)", [req.body.id_carrito_herramienta]);
+          return _database.pool.query("CALL sp_delete_carrito_herramienta(?, ?)", [req.body.id_carrito_herramienta, req.body.id_user]);
         case 3:
           data = _context7.sent;
           if (data[0].affectedRows >= 1) {
