@@ -14,6 +14,8 @@ routerAdmin.put("/admin", admin.updateStateReport);// PROBARLO
 routerAdmin.get("/admin", admin.showInfoReport);// PROBARLO
 
 routerAdmin.post("/adminShow", admin.showInfoAdmin);
+routerAdmin.post("/reportTools", admin.showInfoReportTools);
+
 
 routerAdmin.get("/formNew", admin.showFormNew);
 routerAdmin.get("/formDemage", admin.showFormDemage);

@@ -20,6 +20,7 @@ routerAdmin.put("/admin", _controllerAdmin["default"].updateStateReport); // PRO
 routerAdmin.get("/admin", _controllerAdmin["default"].showInfoReport); // PROBARLO
 
 routerAdmin.post("/adminShow", _controllerAdmin["default"].showInfoAdmin);
+routerAdmin.post("/reportTools", _controllerAdmin["default"].showInfoReportTools);
 routerAdmin.get("/formNew", _controllerAdmin["default"].showFormNew);
 routerAdmin.get("/formDemage", _controllerAdmin["default"].showFormDemage);
 routerAdmin.get("/showBorrowTool", _controllerAdmin["default"].showBorrowTool);
