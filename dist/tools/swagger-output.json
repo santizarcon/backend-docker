@@ -29,8 +29,20 @@
             "description": ""
           }
         }
-      },
+      }
+    },
+    "/sendOTP": {
       "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/recoverPassword": {
+      "put": {
         "description": "",
         "responses": {
           "default": {
@@ -49,7 +61,17 @@
         }
       }
     },
-    "/shopping": {
+    "/userReport": {
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/userShow": {
       "post": {
         "description": "",
         "responses": {
@@ -77,8 +99,10 @@
             "description": ""
           }
         }
-      },
-      "get": {
+      }
+    },
+    "/formNewUserShow": {
+      "post": {
         "description": "",
         "responses": {
           "default": {
@@ -95,8 +119,10 @@
             "description": ""
           }
         }
-      },
-      "get": {
+      }
+    },
+    "/formDemageUserShow": {
+      "post": {
         "description": "",
         "responses": {
           "default": {
@@ -147,6 +173,30 @@
         }
       }
     },
+    "/oauthOTP": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "otp": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/admin": {
       "post": {
         "description": "",
@@ -157,6 +207,34 @@
         }
       },
       "put": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/adminShow": {
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/reportTools": {
+      "post": {
         "description": "",
         "responses": {
           "default": {
@@ -185,7 +263,7 @@
         }
       }
     },
-    "/accounts": {
+    "/showBorrowTool": {
       "get": {
         "description": "",
         "responses": {
@@ -193,8 +271,10 @@
             "description": ""
           }
         }
-      },
-      "put": {
+      }
+    },
+    "/accounts": {
+      "get": {
         "description": "",
         "responses": {
           "default": {
@@ -269,6 +349,26 @@
         }
       },
       "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/cartTool": {
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/showCartTool": {
+      "post": {
         "description": "",
         "responses": {
           "default": {
