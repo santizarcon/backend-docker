@@ -1,0 +1,299 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "user",
+    "collectionId": "6c9867da-ee5b-48e9-8673-3ca1bf0cd0c0",
+    "dateExported": "2024-07-18T03:28:11.520Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "710f98c4-f932-4aa8-b583-893ff6c20e70",
+            "colId": "6c9867da-ee5b-48e9-8673-3ca1bf0cd0c0",
+            "containerId": "",
+            "name": "login",
+            "url": "localhost:4000/api/login",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-07-18T02:03:24.130Z",
+            "modified": "2024-07-18T02:08:57.223Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\":\"mari@gmail.com\",\n  \"password\":\"12\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "9fdcd24e-df79-4276-b0e2-05993ff5767a",
+            "colId": "6c9867da-ee5b-48e9-8673-3ca1bf0cd0c0",
+            "containerId": "",
+            "name": "account",
+            "url": "localhost:4000/api/account",
+            "method": "PUT",
+            "sortNum": 20000,
+            "created": "2024-07-18T02:09:22.042Z",
+            "modified": "2024-07-18T02:13:44.794Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"email\": \"mari@gmail.com\",\r\n  \"password\": \"12\",\r\n  \"nombre\": \"marithza\",\r\n  \"apellido\": \"casta\",\r\n  \"estado\": \"activo\"\r\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "d6bce867-a99c-472b-b130-4ebd21ace05b",
+            "colId": "6c9867da-ee5b-48e9-8673-3ca1bf0cd0c0",
+            "containerId": "",
+            "name": "sendOTP",
+            "url": "localhost:4000/api/sendOTP",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2024-07-18T02:14:27.838Z",
+            "modified": "2024-07-18T02:16:45.961Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"mari@gmail.com\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "9c3bbbf9-13c9-4857-91be-392f7a95fe3c",
+            "colId": "6c9867da-ee5b-48e9-8673-3ca1bf0cd0c0",
+            "containerId": "",
+            "name": "recoverPassword",
+            "url": "localhost:4000/api/recoverPassword",
+            "method": "PUT",
+            "sortNum": 60000,
+            "created": "2024-07-18T02:46:59.145Z",
+            "modified": "2024-07-18T02:48:45.194Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"mari@gmail.com\",\n  \"password\": \"12\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "0ceadbe7-85ac-40e4-8265-c0d53d7475ce",
+            "colId": "6c9867da-ee5b-48e9-8673-3ca1bf0cd0c0",
+            "containerId": "",
+            "name": "createUser",
+            "url": "localhost:4000/api/user",
+            "method": "POST",
+            "sortNum": 70000,
+            "created": "2024-07-18T02:49:59.465Z",
+            "modified": "2024-07-18T02:52:32.107Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"mari@gmail.com\",\n  \"password\": \"12\",\n  \"nombre\": \"marithza\",\n  \"apellido\": \"castaño\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "592f7418-e7cd-449a-9970-d59510cad9bb",
+            "colId": "6c9867da-ee5b-48e9-8673-3ca1bf0cd0c0",
+            "containerId": "",
+            "name": "deleteUser",
+            "url": "localhost:4000/api/user",
+            "method": "DELETE",
+            "sortNum": 80000,
+            "created": "2024-07-18T02:53:28.138Z",
+            "modified": "2024-07-18T02:54:28.754Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"mari@gmail.com\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "b5a94373-cabe-43f5-af5e-802c7295c21d",
+            "colId": "6c9867da-ee5b-48e9-8673-3ca1bf0cd0c0",
+            "containerId": "",
+            "name": "showReport",
+            "url": "localhost:4000/api/userReport",
+            "method": "POST",
+            "sortNum": 90000,
+            "created": "2024-07-18T02:55:08.827Z",
+            "modified": "2024-07-18T02:56:58.955Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\": 1\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "d3eb1765-7ce0-4fc0-971b-45e962f4c669",
+            "colId": "6c9867da-ee5b-48e9-8673-3ca1bf0cd0c0",
+            "containerId": "",
+            "name": "showInfoUser",
+            "url": "localhost:4000/api/userShow",
+            "method": "POST",
+            "sortNum": 100000,
+            "created": "2024-07-18T02:58:42.419Z",
+            "modified": "2024-07-18T02:59:37.680Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\": 1\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "d25b425a-5cd0-4887-b6cc-d088a3bd0dae",
+            "colId": "6c9867da-ee5b-48e9-8673-3ca1bf0cd0c0",
+            "containerId": "",
+            "name": "createReport",
+            "url": "localhost:4000/api/reportRequest",
+            "method": "POST",
+            "sortNum": 110000,
+            "created": "2024-07-18T03:01:13.777Z",
+            "modified": "2024-07-18T03:03:16.851Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"numero_ficha\": 2696118, \n  \"fecha\": \"2024-07-17\", \n  \"id_user\": 1\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "677f508d-4093-41a7-90bb-ea0b44ad2a36",
+            "colId": "6c9867da-ee5b-48e9-8673-3ca1bf0cd0c0",
+            "containerId": "",
+            "name": "createFormNew",
+            "url": "localhost:4000/api/formNewUser",
+            "method": "POST",
+            "sortNum": 120000,
+            "created": "2024-07-18T03:04:30.432Z",
+            "modified": "2024-07-18T03:06:53.568Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"asunto\": \"Proyecto\",\n  \"cantidad\": 2,\n  \"descripcion\": \"Padilla no hizo nada en el proyecto, PD: no decirle nada\",\n  \"id_user\": \"1\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "ae1582e8-4d56-4355-9c4a-1bc339fe7319",
+            "colId": "6c9867da-ee5b-48e9-8673-3ca1bf0cd0c0",
+            "containerId": "",
+            "name": "showFormNew",
+            "url": "localhost:4000/api/formNewUserShow",
+            "method": "POST",
+            "sortNum": 130000,
+            "created": "2024-07-18T03:09:11.718Z",
+            "modified": "2024-07-18T03:10:33.415Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id_user\": 1\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "ba612c2e-503e-4638-99e5-3cc2ec8e4e9f",
+            "colId": "6c9867da-ee5b-48e9-8673-3ca1bf0cd0c0",
+            "containerId": "",
+            "name": "createFormDamage",
+            "url": "localhost:4000/api/formDemageUser",
+            "method": "POST",
+            "sortNum": 140000,
+            "created": "2024-07-18T03:11:34.004Z",
+            "modified": "2024-07-18T03:14:26.510Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"asunto\": \"proyecto\",\n  \"cantidad\": 2,\n  \"imagen\": \"link\",\n  \"descripcion\": \"daño\",\n  \"id_user\": 1,\n  \"id_herramienta\": 1\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "82347deb-d866-440b-be74-527317dc4349",
+            "colId": "6c9867da-ee5b-48e9-8673-3ca1bf0cd0c0",
+            "containerId": "",
+            "name": "showFormDamage",
+            "url": "localhost:4000/api/formDemageUserShow",
+            "method": "POST",
+            "sortNum": 150000,
+            "created": "2024-07-18T03:15:26.795Z",
+            "modified": "2024-07-18T03:16:19.039Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id_user\": 1\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "32fc57be-af89-45f8-9cc0-f90a01f3b762",
+            "colId": "6c9867da-ee5b-48e9-8673-3ca1bf0cd0c0",
+            "containerId": "",
+            "name": "createUserFicha",
+            "url": "localhost:4000/api/fichaUser",
+            "method": "POST",
+            "sortNum": 160000,
+            "created": "2024-07-18T03:16:59.858Z",
+            "modified": "2024-07-18T03:18:00.782Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id_user\": 1,\n  \"numero_ficha\": 2696118\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "bbd60346-d2d9-4f5e-ae17-42b1bbaa1699",
+            "colId": "6c9867da-ee5b-48e9-8673-3ca1bf0cd0c0",
+            "containerId": "",
+            "name": "showUserFicha",
+            "url": "localhost:4000/api/fichaUser",
+            "method": "GET",
+            "sortNum": 170000,
+            "created": "2024-07-18T03:18:41.102Z",
+            "modified": "2024-07-18T03:20:51.719Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id_user\": 1\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "6ed560d2-c023-490a-a485-6053deb32ade",
+            "colId": "6c9867da-ee5b-48e9-8673-3ca1bf0cd0c0",
+            "containerId": "",
+            "name": "validateToken",
+            "url": "localhost:4000/api/oauth",
+            "method": "POST",
+            "sortNum": 180000,
+            "created": "2024-07-18T03:22:42.387Z",
+            "modified": "2024-07-18T03:24:09.860Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiZW1haWwiOiJtYXJpQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJEUzS1NOMFF2aGNWczd6VnBScTZWUk9LSVRIUFZPUHpRNHVxV1ZWWUgxQkZEbnd1WmZoYm5HIiwibm9tYnJlIjoiTWFyaXRoemEgIiwiYXBlbGxpZG8iOiJDYXN0YcOxbyAiLCJlc3RhZG8iOiJhY3Rpdm8iLCJpYXQiOjE3MjEyNjg1OTJ9.4PM8i04PdSk6J1EbCRSFbQXBo42-noBjdoo2FXG9vmc"
+            }
+        },
+        {
+            "_id": "7d07a311-17e7-483e-8382-2590c0cc394c",
+            "colId": "6c9867da-ee5b-48e9-8673-3ca1bf0cd0c0",
+            "containerId": "",
+            "name": "checkOTP",
+            "url": "localhost:4000/api/oauthOTP",
+            "method": "POST",
+            "sortNum": 190000,
+            "created": "2024-07-18T03:25:22.798Z",
+            "modified": "2024-07-18T03:27:08.721Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"otp\": 123456\n}",
+                "form": []
+            }
+        }
+    ],
+    "ref": "YqLKZ7tGOhzYmBY--iBcDEadL5tcPuuOUUeW4fk-5gEQ39--6lJN0BESbGhbErE1I6KzLnIZvGAttuQLFRKQrw"
+}
