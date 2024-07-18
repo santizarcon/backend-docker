@@ -63,7 +63,12 @@ var createSubAdmin = /*#__PURE__*/function () {
   };
 }();
 
-// Actualizar el estado del Informe de solicitud PROBARLO ESTADO_SOLICITUD
+/**
+ * Esta funcion sirve actualizar el estado de solicitud del informe de solicitud
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
 var updateStateReport = /*#__PURE__*/function () {
   var _ref2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res, next) {
     var data, message, _message2;
@@ -141,12 +146,12 @@ var showInfoReport = /*#__PURE__*/function () {
 }();
 
 /**
- * Esta funcion sirve para mostrar la informacion de las herramientas de cada inventario
+ * Esta funcion sirve para mostrara los datos dependiendo del el id ADMIN
  * @param {object} req Captura peticiones en HTML
  * @param {object} res Envia peticiones en HTML
  * @param {object} next Sirve para pasar a la siguiente instruccion
  */
-var showInfoReportTools = /*#__PURE__*/function () {
+var showInfoAdmin = /*#__PURE__*/function () {
   var _ref4 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(req, res, next) {
     var data, message;
     return _regenerator["default"].wrap(function _callee4$(_context4) {
@@ -154,7 +159,7 @@ var showInfoReportTools = /*#__PURE__*/function () {
         case 0:
           _context4.prev = 0;
           _context4.next = 3;
-          return _database.pool.query("call sp_read_informe_carrito(?);", [req.body.id_informe]);
+          return _database.pool.query("call sp_read_admin(?);", [req.body.id]);
         case 3:
           data = _context4.sent;
           message = data[0][0];
@@ -173,18 +178,18 @@ var showInfoReportTools = /*#__PURE__*/function () {
       }
     }, _callee4, null, [[0, 8]]);
   }));
-  return function showInfoReportTools(_x10, _x11, _x12) {
+  return function showInfoAdmin(_x10, _x11, _x12) {
     return _ref4.apply(this, arguments);
   };
 }();
 
 /**
- * Esta funcion sirve para mostrara los datos dependiendo del el id ADMIN
+ * Esta funcion sirve para mostrar la informacion de las herramientas de cada inventario
  * @param {object} req Captura peticiones en HTML
  * @param {object} res Envia peticiones en HTML
  * @param {object} next Sirve para pasar a la siguiente instruccion
  */
-var showInfoAdmin = /*#__PURE__*/function () {
+var showInfoReportTools = /*#__PURE__*/function () {
   var _ref5 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(req, res, next) {
     var data, message;
     return _regenerator["default"].wrap(function _callee5$(_context5) {
@@ -192,7 +197,7 @@ var showInfoAdmin = /*#__PURE__*/function () {
         case 0:
           _context5.prev = 0;
           _context5.next = 3;
-          return _database.pool.query("call sp_read_admin(?);", [req.body.id]);
+          return _database.pool.query("call sp_read_informe_carrito(?);", [req.body.id_informe]);
         case 3:
           data = _context5.sent;
           message = data[0][0];
@@ -211,7 +216,7 @@ var showInfoAdmin = /*#__PURE__*/function () {
       }
     }, _callee5, null, [[0, 8]]);
   }));
-  return function showInfoAdmin(_x13, _x14, _x15) {
+  return function showInfoReportTools(_x13, _x14, _x15) {
     return _ref5.apply(this, arguments);
   };
 }();

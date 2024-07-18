@@ -38,7 +38,12 @@ const createSubAdmin = async (req, res, next) => {
 
 };
 
-// Actualizar el estado del Informe de solicitud PROBARLO ESTADO_SOLICITUD
+/**
+ * Esta funcion sirve actualizar el estado de solicitud del informe de solicitud
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
 const updateStateReport = async(req, res, next) =>{
   try {
     const data = await pool.query(`CALL sp_update_informe_solicitud(?, ?)`, [
@@ -78,26 +83,6 @@ const showInfoReport = async(req, res, next) =>{
 };
 
 /**
- * Esta funcion sirve para mostrar la informacion de las herramientas de cada inventario
- * @param {object} req Captura peticiones en HTML
- * @param {object} res Envia peticiones en HTML
- * @param {object} next Sirve para pasar a la siguiente instruccion
- */
-const showInfoReportTools = async(req, res, next) =>{
-  try {
-    const data = await pool.query(`call sp_read_informe_carrito(?);`, [
-      req.body.id_informe,
-    ]);
-
-    let message = data[0][0];
-    response.success(req, res, message, 201);
-
-  } catch (err) {
-    next(err);
-  };
-};
-
-/**
  * Esta funcion sirve para mostrara los datos dependiendo del el id ADMIN
  * @param {object} req Captura peticiones en HTML
  * @param {object} res Envia peticiones en HTML
@@ -119,6 +104,26 @@ const showInfoAdmin = async (req, res, next) => {
 
 };
 
+
+/**
+ * Esta funcion sirve para mostrar la informacion de las herramientas de cada inventario
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const showInfoReportTools = async(req, res, next) =>{
+  try {
+    const data = await pool.query(`call sp_read_informe_carrito(?);`, [
+      req.body.id_informe,
+    ]);
+
+    let message = data[0][0];
+    response.success(req, res, message, 201);
+
+  } catch (err) {
+    next(err);
+  };
+};
 
 
 /**

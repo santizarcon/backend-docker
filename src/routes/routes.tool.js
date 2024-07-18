@@ -9,7 +9,7 @@ import { checkAuth } from "../services/security.js";
 const routerTool = express.Router();
 
 // ROUTES
-routerTool.post("/tool", checkAuth, tool.createTool);
+routerTool.post("/tool", tool.createTool);
 routerTool.put("/tool", tool.updateTool);
 routerTool.delete("/tool", tool.deleteTool);
 routerTool.get("/tool", tool.showTool);

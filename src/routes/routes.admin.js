@@ -1,6 +1,5 @@
 import admin from "../controllers/controller.admin.js";
 import express from "express";
-import { checkAuth } from "../services/security.js";
 
 /**
  * Esta es la ruta del administrador
@@ -10,12 +9,11 @@ const routerAdmin = express.Router();
 
 // RUTAS
 routerAdmin.post("/admin", admin.createSubAdmin);
-routerAdmin.put("/admin", admin.updateStateReport);// PROBARLO
-routerAdmin.get("/admin", admin.showInfoReport);// PROBARLO
+routerAdmin.put("/admin", admin.updateStateReport);
+routerAdmin.get("/admin", admin.showInfoReport);
 
 routerAdmin.post("/adminShow", admin.showInfoAdmin);
 routerAdmin.post("/reportTools", admin.showInfoReportTools);
-
 
 routerAdmin.get("/formNew", admin.showFormNew);
 routerAdmin.get("/formDemage", admin.showFormDemage);

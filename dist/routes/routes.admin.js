@@ -7,7 +7,6 @@ Object.defineProperty(exports, "__esModule", {
 exports["default"] = void 0;
 var _controllerAdmin = _interopRequireDefault(require("../controllers/controller.admin.js"));
 var _express = _interopRequireDefault(require("express"));
-var _security = require("../services/security.js");
 /**
  * Esta es la ruta del administrador
  * @type {object}
@@ -16,9 +15,8 @@ var routerAdmin = _express["default"].Router();
 
 // RUTAS
 routerAdmin.post("/admin", _controllerAdmin["default"].createSubAdmin);
-routerAdmin.put("/admin", _controllerAdmin["default"].updateStateReport); // PROBARLO
-routerAdmin.get("/admin", _controllerAdmin["default"].showInfoReport); // PROBARLO
-
+routerAdmin.put("/admin", _controllerAdmin["default"].updateStateReport);
+routerAdmin.get("/admin", _controllerAdmin["default"].showInfoReport);
 routerAdmin.post("/adminShow", _controllerAdmin["default"].showInfoAdmin);
 routerAdmin.post("/reportTools", _controllerAdmin["default"].showInfoReportTools);
 routerAdmin.get("/formNew", _controllerAdmin["default"].showFormNew);

@@ -1,0 +1,125 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "tool",
+    "collectionId": "aeffd6d0-e190-4b08-b332-afc6fc8338e9",
+    "dateExported": "2024-07-18T01:19:05.646Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "2722614e-cf60-4e5c-be5e-9dce0bb1199b",
+            "colId": "aeffd6d0-e190-4b08-b332-afc6fc8338e9",
+            "containerId": "",
+            "name": "Crear Herramienta",
+            "url": "localhost:4000/api/tool",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-07-17T23:49:54.952Z",
+            "modified": "2024-07-18T00:00:12.146Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"nombre_herramienta\" : \"tijeras\",\n    \"imagen\" : \"\",\n    \"descripcion\" : \"Cortan\",\n    \"cantidad_total\" : 2,\n    \"referencia\" : \"2233\",\n    \"id_admin\" : 1\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "19f8e121-125c-4fac-87c3-d5ef8a3c3c20",
+            "colId": "aeffd6d0-e190-4b08-b332-afc6fc8338e9",
+            "containerId": "",
+            "name": "Eliminar Herramienta",
+            "url": "localhost:4000/api/tool",
+            "method": "DELETE",
+            "sortNum": 20000,
+            "created": "2024-07-18T00:01:45.137Z",
+            "modified": "2024-07-18T00:12:15.586Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\" : 12\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "c1558e75-5767-4fda-8524-283b6a092f0a",
+            "colId": "aeffd6d0-e190-4b08-b332-afc6fc8338e9",
+            "containerId": "",
+            "name": "Actualizar Herramienta",
+            "url": "localhost:4000/api/tool",
+            "method": "PUT",
+            "sortNum": 30000,
+            "created": "2024-07-18T00:02:43.426Z",
+            "modified": "2024-07-18T00:12:40.869Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"id\" : 2,\n    \"nombre_herramienta\" : \"tijerass\",\n    \"imagen\" : \"\",\n    \"descripcion\" : \"Cortan\",\n    \"cantidad_total\" : 2,\n    \"referencia\" : \"2233\",\n    \"id_admin\" : 1\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "dabbe5a1-c971-450b-a682-568b8014772e",
+            "colId": "aeffd6d0-e190-4b08-b332-afc6fc8338e9",
+            "containerId": "",
+            "name": "Mostrar Herramienta",
+            "url": "localhost:4000/api/tool",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2024-07-18T00:03:42.991Z",
+            "modified": "2024-07-18T00:03:57.993Z",
+            "headers": []
+        },
+        {
+            "_id": "d413c6fc-85d1-40cc-8279-fea118fcf5b9",
+            "colId": "aeffd6d0-e190-4b08-b332-afc6fc8338e9",
+            "containerId": "",
+            "name": "Crear Carrito",
+            "url": "localhost:4000/api/cartTool",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2024-07-18T00:05:54.941Z",
+            "modified": "2024-07-18T00:14:03.245Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"cantidad_herramienta\" : 3, \n  \"id_herramienta\" : 3,\n \" id_user\" : 4\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "6cad9838-4270-4aa4-a33d-43d6167b1adc",
+            "colId": "aeffd6d0-e190-4b08-b332-afc6fc8338e9",
+            "containerId": "",
+            "name": "Mostrar Carrito User",
+            "url": "localhost:4000/api/showCartTool",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2024-07-18T00:07:51.279Z",
+            "modified": "2024-07-18T00:16:11.171Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id_user\" : 28\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "26805274-45c9-4f01-98f5-5e4eeef7bb49",
+            "colId": "aeffd6d0-e190-4b08-b332-afc6fc8338e9",
+            "containerId": "",
+            "name": "Eliminar Carrito",
+            "url": "localhost:4000/api/cartTool",
+            "method": "DELETE",
+            "sortNum": 70000,
+            "created": "2024-07-18T00:09:05.535Z",
+            "modified": "2024-07-18T00:17:24.213Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id_carrito_herramienta\" : 4,\n  \"id_user\" : 9\n}",
+                "form": []
+            }
+        }
+    ],
+    "ref": "IMaGXF8ixusYIM8IdAJAjPX0fvYb4q9x3X4Wf3Gg8iLrAYeG8sBZrHJ7GoTOGGo_Tl-Hlt9cCO3_8cF1Q0STpw"
+}

@@ -1,0 +1,219 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "admin",
+    "collectionId": "4d71e91f-e297-4c3a-95f1-0410f6f4cee1",
+    "dateExported": "2024-07-18T01:19:31.604Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "c8c1eb34-7b51-44cb-adda-87558e8b1803",
+            "colId": "4d71e91f-e297-4c3a-95f1-0410f6f4cee1",
+            "containerId": "",
+            "name": "Crear SubAdmin",
+            "url": "localhost:4000/api/admin",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-07-18T00:35:44.349Z",
+            "modified": "2024-07-18T00:37:38.962Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n   \"email\" : \"marii@gmail.com\",\n   \"password\" : \"123\",\n   \"nombre\" : \"mari\",\n   \"apellido\" : \"castaño\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "164c2dd5-f83e-487d-9c8f-114d07635d00",
+            "colId": "4d71e91f-e297-4c3a-95f1-0410f6f4cee1",
+            "containerId": "",
+            "name": "Actualizar Estado Solicitud",
+            "url": "localhost:4000/api/admin",
+            "method": "PUT",
+            "sortNum": 20000,
+            "created": "2024-07-18T00:40:16.217Z",
+            "modified": "2024-07-18T00:42:21.673Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n   \"id\" : 4,\n   \"estado\" : \"aceptado\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "c562ee0e-590c-4b12-8174-06b6f559b0e7",
+            "colId": "4d71e91f-e297-4c3a-95f1-0410f6f4cee1",
+            "containerId": "",
+            "name": "Mostrar Informe Solicitud",
+            "url": "localhost:4000/api/admin",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-07-18T00:58:08.040Z",
+            "modified": "2024-07-18T00:58:18.407Z",
+            "headers": []
+        },
+        {
+            "_id": "cf65f4af-5539-48bf-ae99-0055d39df3cd",
+            "colId": "4d71e91f-e297-4c3a-95f1-0410f6f4cee1",
+            "containerId": "",
+            "name": "Mostrar Info Admin",
+            "url": "localhost:4000/api/adminShow",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2024-07-18T00:59:02.708Z",
+            "modified": "2024-07-18T01:00:40.730Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\" : 1\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "72593f01-1bea-4c9b-bd48-f4e547b08cbb",
+            "colId": "4d71e91f-e297-4c3a-95f1-0410f6f4cee1",
+            "containerId": "",
+            "name": "Mostrar Herramienta Carrito",
+            "url": "localhost:4000/api/reportTools",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2024-07-18T01:01:42.682Z",
+            "modified": "2024-07-18T01:02:27.264Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id_informe\" : 2\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "38e1225a-e19a-46a0-8848-eb5a2900ae4f",
+            "colId": "4d71e91f-e297-4c3a-95f1-0410f6f4cee1",
+            "containerId": "",
+            "name": "Mostrar Formu Nuevo",
+            "url": "localhost:4000/api/formNew",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2024-07-18T01:03:03.506Z",
+            "modified": "2024-07-18T01:03:19.559Z",
+            "headers": []
+        },
+        {
+            "_id": "4cf84102-ad76-4e82-8f27-27c62506c6bc",
+            "colId": "4d71e91f-e297-4c3a-95f1-0410f6f4cee1",
+            "containerId": "",
+            "name": "Mostrar Formu Daño",
+            "url": "localhost:4000/api/formDemage",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2024-07-18T01:06:52.478Z",
+            "modified": "2024-07-18T01:07:06.892Z",
+            "headers": []
+        },
+        {
+            "_id": "1fad07c0-0a3a-4d13-8a28-c781e83e1228",
+            "colId": "4d71e91f-e297-4c3a-95f1-0410f6f4cee1",
+            "containerId": "",
+            "name": "Mostrar Herramientas Prestadas",
+            "url": "localhost:4000/api/showBorrowTool",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2024-07-18T01:07:44.954Z",
+            "modified": "2024-07-18T01:08:02.127Z",
+            "headers": []
+        },
+        {
+            "_id": "4fcbd4c1-0e87-4bdc-9991-29b76685dc3d",
+            "colId": "4d71e91f-e297-4c3a-95f1-0410f6f4cee1",
+            "containerId": "",
+            "name": "Mostrar Cuentas",
+            "url": "localhost:4000/api/accounts",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2024-07-18T01:08:56.179Z",
+            "modified": "2024-07-18T01:09:10.369Z",
+            "headers": []
+        },
+        {
+            "_id": "47634929-e235-42ec-8118-ac3e4a90ae83",
+            "colId": "4d71e91f-e297-4c3a-95f1-0410f6f4cee1",
+            "containerId": "",
+            "name": "Eliminar User",
+            "url": "localhost:4000/api/accounts",
+            "method": "POST",
+            "sortNum": 100000,
+            "created": "2024-07-18T01:09:42.814Z",
+            "modified": "2024-07-18T01:12:37.756Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n   \"id_user\" : 4,\n   \"id_admin\" : 1\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "a0cea974-35e8-47cd-835f-52751e0cff7d",
+            "colId": "4d71e91f-e297-4c3a-95f1-0410f6f4cee1",
+            "containerId": "",
+            "name": "Crear Ficha",
+            "url": "localhost:4000/api/ficha",
+            "method": "POST",
+            "sortNum": 110000,
+            "created": "2024-07-18T01:13:03.357Z",
+            "modified": "2024-07-18T01:15:39.358Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"numero_ficha\" : 2222,\n    \"cantidad_aprendices\" : 14,\n    \"nivel_formacion\" : \"Tecnico\",\n    \"programa_formacion\" : \"Moda\",\n    \"ambiente\" : \"Sena\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "879a7127-3a37-496b-a13c-6cfd5dd664be",
+            "colId": "4d71e91f-e297-4c3a-95f1-0410f6f4cee1",
+            "containerId": "",
+            "name": "Eliminar Ficha",
+            "url": "localhost:4000/api/ficha",
+            "method": "DELETE",
+            "sortNum": 120000,
+            "created": "2024-07-18T01:15:59.238Z",
+            "modified": "2024-07-18T01:16:31.701Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"numero_ficha\" : 2222\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "a8e5e0ae-87cb-4770-8879-5498f5a4c0ba",
+            "colId": "4d71e91f-e297-4c3a-95f1-0410f6f4cee1",
+            "containerId": "",
+            "name": "Actualizar Ficha",
+            "url": "localhost:4000/api/ficha",
+            "method": "PUT",
+            "sortNum": 130000,
+            "created": "2024-07-18T01:16:50.182Z",
+            "modified": "2024-07-18T01:17:46.256Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"id\" : 2,\n    \"numero_ficha\" : 2222,\n    \"cantidad_aprendices\" : 14,\n    \"nivel_formacion\" : \"Tecnico\",\n    \"programa_formacion\" : \"Moda\",\n    \"ambiente\" : \"Sena\",\n    \"estado\" : \"Activo\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "cd9f6d75-c8db-477c-9ef3-16bee74de30a",
+            "colId": "4d71e91f-e297-4c3a-95f1-0410f6f4cee1",
+            "containerId": "",
+            "name": "Mostrar ficha",
+            "url": "localhost:4000/api/ficha",
+            "method": "GET",
+            "sortNum": 140000,
+            "created": "2024-07-18T01:18:39.682Z",
+            "modified": "2024-07-18T01:18:55.197Z",
+            "headers": []
+        }
+    ],
+    "ref": "VSJNhbTJap8hgKADQ8uTMINOma926ir59fLqYyp2aQTy1iWYbfvAI9mrCXKFY-w13KWLQkurvdVo60aBYIZTjw"
+}

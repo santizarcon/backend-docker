@@ -15,7 +15,7 @@ var _security = require("../services/security.js");
 var routerTool = _express["default"].Router();
 
 // ROUTES
-routerTool.post("/tool", _security.checkAuth, _controllerTool["default"].createTool);
+routerTool.post("/tool", _controllerTool["default"].createTool);
 routerTool.put("/tool", _controllerTool["default"].updateTool);
 routerTool["delete"]("/tool", _controllerTool["default"].deleteTool);
 routerTool.get("/tool", _controllerTool["default"].showTool);
