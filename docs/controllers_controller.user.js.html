@@ -31,10 +31,11 @@
  * @module ctl-user
  */
 import bcrypt from "bcrypt";
-import { assignToken } from "../middleware/auth.js";
 import response from "../messages/responses.js";
+import { assignToken } from "../middleware/auth.js";
+import { sendOTP } from "../middleware/mail.js";
+import { generateCodeOTP } from "../middleware/otp.js";
 import { pool } from "../models/database.js";
-
 
 // BOTH
 
@@ -66,7 +67,8 @@ const login = async (req, res, next) => {
     }
 
     const token = assignToken(data[0][0][0]);
-    response.success(req, res, token, 200);
+    const info = data[0][0];
+    response.success(req, res, { token, info }, 200);
   } catch (err) {
     next(err);
   }
@@ -92,67 +94,70 @@ const updateAccounts = async (req, res, next) => {
 
     if (data[0].affectedRows >= 1) {
       let message = "Item updated successful (Account)";
-    response.success(req, res, message, 201);
+      response.success(req, res, message, 201);
     } else {
       let message = "Could't updated Account";
-      response.error(req, res, message, 400)
+      response.error(req, res, message, 400);
     }
-
   } catch (err) {
     next(err);
   }
 };
 
 /**
- * Esta funcion sirve para crear el codigo OTP, para recuperar la contraseña
+ * Esta funcion sirve para crear y enviar el codigo OTP, para recuperar la
+ * contraseña
  * @param {object} req Captura peticiones en HTML
  * @param {object} res Envia peticiones en HTML
  * @param {object} next Sirve para pasar a la siguiente instruccion
  */
-const createCodeOTP = async (req, res, next) => {
-
+const sendMail = async (req, res, next) => {
   try {
-    const data = await pool.query(`CALL sp_create_codigo_otp(?, ?);`, [
-      req.body.codigo,
-      req.body.email,
-    ]);
-
-    if (data[0].affectedRows >= 1) {
-      let message = "Item created successful (Code OTP)";
-    response.success(req, res, message, 201);
-    } else {
-      let message = "Could't created code OTP";
-      response.error(req, res, message, 400)
+    const data = await pool.query(`CALL sp_read_logueo(?);`, [req.body.email]);
+    if (!data[0][0] >= 1) {
+      let message = "Email doesn't exist";
+      response.error(req, res, message, 404);
+      return;
     }
 
+    const otp = generateCodeOTP();
+    sendOTP(req.body.email, otp);
+    let message = "Otp sent to email: " + req.body.email;
+    response.success(req, res, message, 200);
   } catch (err) {
     next(err);
   }
 };
 
-// Eliminar el Codigo OTP   PROBARLO
-const deleteCodeOTP = async (req, res, next) => {
+/**
+ * Esta funcion sirve para recuperar contraseña
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
+const recoverPassword = async (req, res, next) => {
+  req.body.password = await bcrypt.hash(req.body.password.toString(), 10);
 
   try {
-    const data = await pool.query(`CALL sp_delete_codigo_otp(?);`, [
+    const data = await pool.query(`CALL sp_update_cuentas(?, ?, ?, ?, ?);`, [
       req.body.email,
+      req.body.password,
+      "",
+      "",
+      "",
     ]);
 
     if (data[0].affectedRows >= 1) {
-      let message = "Item deleted successful (Code OTP)";
-    response.success(req, res, message, 201);
+      let message = "Item updated successful (password)";
+      response.success(req, res, message, 201);
     } else {
-      let message = "Could't deleted code OTP";
-      response.error(req, res, message, 400)
+      let message = "Could't updated password";
+      response.error(req, res, message, 400);
     }
-
   } catch (err) {
     next(err);
   }
 };
-
-
-// ONLY USER
 
 /**
  * Esta funcion sirve para crear cuentas de usuario
@@ -160,6 +165,7 @@ const deleteCodeOTP = async (req, res, next) => {
  * @param {object} res Envia peticiones en HTML
  * @param {object} next Sirve para pasar a la siguiente instruccion
  */
+// ONLY USER
 const createUser = async (req, res, next) => {
   req.body.password = await bcrypt.hash(req.body.password.toString(), 10);
 
@@ -176,15 +182,19 @@ const createUser = async (req, res, next) => {
       response.success(req, res, message, 201);
     } else {
       let message = "Could't add the user";
-      response.error(req, res, message, 400)
+      response.error(req, res, message, 400);
     }
-
   } catch (err) {
     next(err);
   }
 };
 
-
+/**
+ * Esta funcion sirve para eliminar el inactivo de los usuarios
+ * @param {object} req Captura peticiones en HTML
+ * @param {object} res Envia peticiones en HTML
+ * @param {object} next Sirve para pasar a la siguiente instruccion
+ */
 // Eliminar recuperar cuenta PROBARLO pregunta si o no y listo
 const deleteUser = async (req, res, next) => {
   try {
@@ -197,37 +207,25 @@ const deleteUser = async (req, res, next) => {
       response.success(req, res, message, 201);
     } else {
       let message = "Could't deleted the account";
-      response.error(req, res, message, 400)
+      response.error(req, res, message, 400);
     }
-
   } catch (err) {
     next(err);
   }
 };
 
 /**
- * Esta funcion sirve para crear el carrito de herramientas a pedir
+ * Esta funcion sirve para mostrara los datos dependiendo del el id USER
  * @param {object} req Captura peticiones en HTML
  * @param {object} res Envia peticiones en HTML
  * @param {object} next Sirve para pasar a la siguiente instruccion
  */
-const createShopping = async (req, res, next) => {
-
+const showInfoUser = async (req, res, next) => {
   try {
-    const data = await pool.query(`CALL sp_create_carrito_herramienta(?, ?, ?);`, [
-      req.body.cantidad_herramienta,
-      req.body.id_herramienta,
-      req.body.id_user,
-    ]);
+    const data = await pool.query(`call sp_read_user(?);`, [req.body.id]);
 
-    if (data[0].affectedRows >= 1) {
-      let message = "Item create successful (shopping cart)";
-      response.success(req, res, message, 201);
-    } else {
-      let message = "Could't add Shopping Cart";
-      response.error(req, res, message, 400)
-    }
-
+    let message = data[0][0];
+    response.success(req, res, message, 201);
   } catch (err) {
     next(err);
   }
@@ -240,21 +238,19 @@ const createShopping = async (req, res, next) => {
  * @param {object} next Sirve para pasar a la siguiente instruccion
  */
 const createReportRequest = async (req, res, next) => {
-
   try {
-    const data = await pool.query(`CALL sp_create_informe_solicitud(?, ?);`, [
-      req.body._numero_ficha,
-      req.body.id_user,
-    ]);
+    const data = await pool.query(
+      `CALL sp_create_informe_solicitud(?, ?, ?);`,
+      [req.body.numero_ficha, req.body.fecha, req.body.id_user]
+    );
 
     if (data[0].affectedRows >= 1) {
       let message = "Item create successful (Report Request)";
       response.success(req, res, message, 201);
     } else {
       let message = "Could't add Report Request";
-      response.error(req, res, message, 400)
+      response.error(req, res, message, 400);
     }
-
   } catch (err) {
     next(err);
   }
@@ -268,21 +264,23 @@ const createReportRequest = async (req, res, next) => {
  */
 const createFormNew = async (req, res, next) => {
   try {
-    const data = await pool.query(`call sp_create_formulario_nueva_herramienta(?, ?, ?, ?);`, [
-      req.body.asunto,
-      req.body.cantidad,
-      req.body.descripcion,
-      req.body.id_user,
-    ]);
+    const data = await pool.query(
+      `call sp_create_formulario_nueva_herramienta(?, ?, ?, ?);`,
+      [
+        req.body.asunto,
+        req.body.cantidad,
+        req.body.descripcion,
+        req.body.id_user,
+      ]
+    );
 
     if (data[0].affectedRows >= 1) {
       let message = "Item create successful (Form New Tool)";
       response.success(req, res, message, 201);
     } else {
       let message = "Could't add Form New Tool";
-      response.error(req, res, message, 400)
+      response.error(req, res, message, 400);
     }
-
   } catch (err) {
     next(err);
   }
@@ -296,13 +294,13 @@ const createFormNew = async (req, res, next) => {
  */
 const ShowFormNewUser = async (req, res, next) => {
   try {
-    const data = await pool.query(`CALL sp_read_formulario_nueva_herramienta_user(?);`, [
-      req.body.id_user,
-    ]);
+    const data = await pool.query(
+      `CALL sp_read_formulario_nueva_herramienta_user(?);`,
+      [req.body.id_user]
+    );
 
     let message = data[0][0];
     response.success(req, res, message, 201);
-
   } catch (err) {
     next(err);
   }
@@ -316,23 +314,25 @@ const ShowFormNewUser = async (req, res, next) => {
  */
 const createFormDemage = async (req, res, next) => {
   try {
-    const data = await pool.query(`call sp_create_formulario_dano_herramienta(?, ?, ?, ?, ?, ?);`, [
-      req.body.asunto,
-      req.body.cantidad,
-      req.body.imagen,
-      req.body.descripcion,
-      req.body.id_user,
-      req.body.id_herramienta,
-    ]);
+    const data = await pool.query(
+      `call sp_create_formulario_dano_herramienta(?, ?, ?, ?, ?, ?);`,
+      [
+        req.body.asunto,
+        req.body.cantidad,
+        req.body.imagen,
+        req.body.descripcion,
+        req.body.id_user,
+        req.body.id_herramienta,
+      ]
+    );
 
     if (data[0].affectedRows >= 1) {
       let message = "Item create successful (Form Demage Tool)";
       response.success(req, res, message, 201);
     } else {
       let message = "Could't add Form Demage Tool";
-      response.error(req, res, message, 400)
+      response.error(req, res, message, 400);
     }
-
   } catch (err) {
     next(err);
   }
@@ -346,20 +346,20 @@ const createFormDemage = async (req, res, next) => {
  */
 const ShowFormDemageUser = async (req, res, next) => {
   try {
-    const data = await pool.query(`CALL sp_read_formulario_dano_herramienta_user(?);`, [
-      req.body.id_user,
-    ]);
+    const data = await pool.query(
+      `CALL sp_read_formulario_daño_herramienta_user(?);`,
+      [req.body.id_user]
+    );
 
     let message = data[0][0];
     response.success(req, res, message, 201);
-
   } catch (err) {
     next(err);
   }
 };
 
 /**
- * Esta funcion sirve para enlazar las fichas correspondientes a cada usuario 
+ * Esta funcion sirve para enlazar las fichas correspondientes a cada usuario
  * @param {object} req Captura peticiones en HTML
  * @param {object} res Envia peticiones en HTML
  * @param {object} next Sirve para pasar a la siguiente instruccion
@@ -373,14 +373,13 @@ const createUserFicha = async (req, res, next) => {
 
     let message = "Item created successful (User-Ficha)";
     response.success(req, res, message, 201);
-
   } catch (err) {
     next(err);
-  };
+  }
 };
 
 /**
- * Esta funcion sirve para mostrar las fichas que tiene cada usuario 
+ * Esta funcion sirve para mostrar las fichas que tiene cada usuario
  * @param {object} req Captura peticiones en HTML
  * @param {object} res Envia peticiones en HTML
  * @param {object} next Sirve para pasar a la siguiente instruccion
@@ -393,39 +392,36 @@ const showFichasUser = async (req, res, next) => {
 
     let message = data[0][0];
     response.success(req, res, message, 201);
-
   } catch (err) {
     next(err);
-  };
+  }
 };
 
 /**
- * Esta funcion sirve para mostrar un mensaje de que el token si es valido 
+ * Esta funcion sirve para mostrar un mensaje de que el token si es valido
  * @param {object} req Captura peticiones en HTML
  * @param {object} res Envia peticiones en HTML
  */
-const validarToken = (req, res) =>{
-  success(req, res, 200, {"token" : "El token es valido"});
+const validateToken = (req, res) => {
+  response.success(req, res, { token: "El token es valido" }, 200);
 };
-
-
 
 export default {
   login,
   updateAccounts,
-  createCodeOTP,
-  deleteCodeOTP,
+  sendMail,
+  recoverPassword,
   createUser,
   deleteUser,
-  createShopping,
+  showInfoUser,
   createReportRequest,
   createFormNew,
   ShowFormNewUser,
   createFormDemage,
   ShowFormDemageUser,
   showFichasUser,
-  createUserFicha, 
-  validarToken
+  createUserFicha,
+  validateToken,
 };
 </code></pre>
         </article>
@@ -443,7 +439,7 @@ export default {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Sun Jun 30 2024 00:55:05 GMT-0500 (hora estándar de Colombia)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Wed Jul 17 2024 08:31:17 GMT-0500 (Colombia Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
