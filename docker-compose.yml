@@ -1,28 +1,32 @@
 version: '3.8'
 
 services:
-  backend-api:
-    image: your-backend-image:latest
+  backcoker:
+    build:
+      context: .
+      dockerfile: .Dockerfile
     ports:
-      - "8000:8000"
+      - "3000:3000"
     environment:
-      - DB_HOST=localhost
-      - DB_PORT=3306
-      - DB_USER=root
-      - DB_PASSWORD=1234
-      - DB_DATABASE=tool-inventory
+      - NODE_ENV=production
+      - MYSQL_ADDON_DB="btvms15ai8xwf6ucbjky"
+      - MYSQL_ADDON_HOST="btvms15ai8xwf6ucbjky-mysql.services.clever-cloud.com"
+      - MYSQL_ADDON_PASSWORD="xQCygNqdCo86VMlRa9U"
+      - MYSQL_ADDON_PORT="20760"
+      - MYSQL_ADDON_USER="udvkxnqxrkypeqxv"
+      - JWT_SECRET = "pruebas_jwt"
     depends_on:
-      - db
+      - mysql
 
-  db:
-    image: mysql:5.7
-    restart: always
+  mysql:
+    image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_DATABASE: tool-inventory
-      MYSQL_USER: santiago
-      MYSQL_PASSWORD: 1234
+      MYSQL_ROOT_PASSWORD: xQCygNqdCo86VMlRa9U
+      MYSQL_DATABASE: btvms15ai8xwf6ucbjky
     ports:
       - "3306:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
