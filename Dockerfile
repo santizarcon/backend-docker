@@ -2,7 +2,7 @@
 FROM node:21
 
 # Establecer el directorio de trabajo en el contenedor
-WORKDIR /src
+WORKDIR /dist
 
 # Copiar el archivo package.json y package-lock.json
 COPY package*.json ./
